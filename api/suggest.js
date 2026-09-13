@@ -20,12 +20,29 @@
 
 const LIMITS = { message: 4000, title: 120, author: 40, contact: 120, clip: 500 };
 
-export async function onRequestGet({ env }) {
-  return json({
+export async function onRequestGet({ request, env }) {
+  const out = {
     enabled: Boolean(env.GITHUB_TOKEN && env.GITHUB_REPO),
     captcha: env.TURNSTILE_SITE_KEY || null,
     repo: env.GITHUB_REPO || null,
-  });
+  };
+
+  // ?debug=1 answers the only question a false "enabled" ever raises: which of
+  // the two is missing, and — the usual culprit — under what name the value was
+  // actually saved. NAMES ONLY. No value is ever read out of env here, so this
+  // stays safe on a public endpoint; a typo'd or wrong-environment secret shows
+  // up as a name in the list that isn't the one being looked for.
+  if (new URL(request.url).searchParams.get("debug") === "1") {
+    out.has = {
+      GITHUB_TOKEN: Boolean(env.GITHUB_TOKEN),
+      GITHUB_REPO: Boolean(env.GITHUB_REPO),
+      GITHUB_BRANCH: Boolean(env.GITHUB_BRANCH),
+      TURNSTILE_SECRET: Boolean(env.TURNSTILE_SECRET),
+    };
+    out.bindings = Object.keys(env).sort();
+  }
+
+  return json(out);
 }
 
 export async function onRequestPost({ request, env }) {
