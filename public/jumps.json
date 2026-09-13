@@ -1,7 +1,7 @@
 {
   "game": "Battlefield 2",
   "map": "Strike at Karkand",
-  "exported": "2026-09-13T23:07:48.279Z",
+  "exported": "2026-09-13T23:09:51.248Z",
   "mapFile": "map.png",
   "spots": [
     {
@@ -1061,6 +1061,28 @@
               "note": ""
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "smu0ff97rs8em4",
+      "name": "",
+      "x": 0.21440272177419356,
+      "y": 0.3712197580645161,
+      "ox": 0,
+      "oy": -0.05,
+      "createdAt": 1789340986215,
+      "jumps": [
+        {
+          "id": "jmu0ff97r1yjsl",
+          "name": "test333",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "test333",
+          "tags": [],
+          "videos": []
         }
       ]
     }
