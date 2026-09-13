@@ -1,7 +1,7 @@
 {
   "game": "Battlefield 2",
   "map": "Strike at Karkand",
-  "exported": "2026-09-13T20:46:17.966Z",
+  "exported": "2026-09-13T20:53:05.184Z",
   "mapFile": "map.png",
   "spots": [
     {
@@ -1081,6 +1081,50 @@
           "diff": 3,
           "kit": "",
           "tech": "From roof of Vodnik to fountain",
+          "tags": [],
+          "videos": []
+        }
+      ]
+    },
+    {
+      "id": "smu0aiowifzjke",
+      "name": "",
+      "x": 0.2027881265318343,
+      "y": 0.3702520185766033,
+      "ox": 0,
+      "oy": -0.05,
+      "createdAt": 1789332748434,
+      "jumps": [
+        {
+          "id": "jmu0aiowiq3y0r",
+          "name": "test_fountain2",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "test_fountain2",
+          "tags": [],
+          "videos": []
+        }
+      ]
+    },
+    {
+      "id": "smu0ajfagqwt7c",
+      "name": "",
+      "x": 0.21291286171726756,
+      "y": 0.3691888045540797,
+      "ox": 0,
+      "oy": -0.05,
+      "createdAt": 1789332782632,
+      "jumps": [
+        {
+          "id": "jmu0ajfagly110",
+          "name": "test_fountain2",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "test_fountain2",
           "tags": [],
           "videos": []
         }
