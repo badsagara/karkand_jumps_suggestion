@@ -1,7 +1,7 @@
 {
   "game": "Battlefield 2",
   "map": "Strike at Karkand",
-  "exported": "2026-09-13T21:42:52.337Z",
+  "exported": "2026-09-13T23:03:34.194Z",
   "mapFile": "map.png",
   "spots": [
     {
@@ -1065,22 +1065,22 @@
       ]
     },
     {
-      "id": "smu0a5slkc2qlt",
+      "id": "smu0f75gjr7bqk",
       "name": "",
-      "x": 0.217623757375602,
-      "y": 0.37022742574099665,
+      "x": 0.19861835863377608,
+      "y": 0.37325441769449713,
       "ox": 0,
       "oy": -0.05,
-      "createdAt": 1789332146696,
+      "createdAt": 1789340608099,
       "jumps": [
         {
-          "id": "jmu0a5slk96sis",
-          "name": "Vodnik to Fountain Jump",
+          "id": "jmu0f75gjd85z0",
+          "name": "test33",
           "route": "",
           "cat": "",
           "diff": 3,
           "kit": "",
-          "tech": "From roof of Vodnik to fountain",
+          "tech": "test33",
           "tags": [],
           "videos": []
         }
