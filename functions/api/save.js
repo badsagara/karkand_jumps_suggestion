@@ -27,8 +27,22 @@
 const MAX_BYTES = 2 * 1024 * 1024;
 
 export async function onRequestGet({ request, env }) {
-  const identity = await verifyAccess(request, env);
-  if (!identity) return json({ error: "not_authenticated" }, 401);
+  const seen = await verifyAccess(request, env);
+  if (!seen) return json({ error: "not_authenticated" }, 401);
+
+  /* The signature and issuer checked out but the AUD did not. That is the
+     usual state while setting up, so say which value the token actually
+     carries — it is the one that belongs in ACCESS_AUD. Nothing is disclosed:
+     the caller already holds this token and a JWT is not encrypted. */
+  if (!seen.audOk) {
+    return json({
+      error: "aud_mismatch",
+      tokenAud: seen.aud,
+      hint: "Put one of these values into the ACCESS_AUD environment variable, then redeploy.",
+    }, 401);
+  }
+
+  const identity = seen.payload;
   return json({
     email: identity.email || null,
     repo: env.GITHUB_REPO || null,
@@ -39,8 +53,10 @@ export async function onRequestGet({ request, env }) {
 }
 
 export async function onRequestPost({ request, env }) {
-  const identity = await verifyAccess(request, env);
-  if (!identity) return json({ error: "not_authenticated" }, 401);
+  const seen = await verifyAccess(request, env);
+  if (!seen) return json({ error: "not_authenticated" }, 401);
+  if (!seen.audOk) return json({ error: "aud_mismatch", tokenAud: seen.aud }, 401);
+  const identity = seen.payload;
 
   if (!env.GITHUB_TOKEN || !env.GITHUB_REPO) {
     return json({ error: "not_configured", detail: "GITHUB_TOKEN or GITHUB_REPO is missing" }, 500);
@@ -108,8 +124,11 @@ export async function onRequestPost({ request, env }) {
 async function verifyAccess(request, env) {
   const team = env.ACCESS_TEAM_DOMAIN;
   const aud = env.ACCESS_AUD;
-  // Refuse rather than fall open: an unconfigured gate is not a gate.
-  if (!team || !aud) return null;
+  /* Without a team domain there is nothing to verify a signature against, so
+     refuse outright: an unconfigured gate is not a gate. A missing AUD is
+     different — the signature can still be checked, and reporting the
+     mismatch is what makes the setup diagnosable. */
+  if (!team) return null;
 
   const token =
     request.headers.get("Cf-Access-Jwt-Assertion") ||
@@ -131,8 +150,13 @@ async function verifyAccess(request, env) {
   if (payload.exp && now >= payload.exp) return null;
   if (payload.nbf && now < payload.nbf - 60) return null;
 
-  const auds = Array.isArray(payload.aud) ? payload.aud : [payload.aud];
-  if (auds.indexOf(aud) === -1) return null;
+  /* Each Access application has its own AUD tag. If /edit and /api/save ended
+     up as two separate applications, list both here, comma-separated — the
+     function only ever sees /api/save, but accepting either keeps the setup
+     forgiving without widening it to the whole Zero Trust team. */
+  const allowed = String(aud || "").split(",").map(function (s) { return s.trim(); }).filter(Boolean);
+  const auds = (Array.isArray(payload.aud) ? payload.aud : [payload.aud]).filter(Boolean);
+  const audOk = allowed.length > 0 && auds.some(function (a) { return allowed.indexOf(a) !== -1; });
 
   const iss = `https://${team}.cloudflareaccess.com`;
   if (payload.iss && payload.iss !== iss) return null;
@@ -161,7 +185,7 @@ async function verifyAccess(request, env) {
     fromB64Url(parts[2]),
     new TextEncoder().encode(parts[0] + "." + parts[1])
   );
-  return ok ? payload : null;
+  return ok ? { payload: payload, audOk: audOk, aud: auds } : null;
 }
 
 async function certs(iss) {

@@ -1520,6 +1520,31 @@ $("jsonPick").addEventListener("change", function(e){
 });
 
 /* ---------- publishing ---------- */
+function audNotice(aud){
+  var box = el("div","toast");
+  box.style.maxWidth = "min(92vw, 560px)";
+  box.style.borderLeftColor = "var(--brick)";
+  box.appendChild(el("div", null, "Signed in, but ACCESS_AUD does not match this application. Its AUD tag is:"));
+  var code = document.createElement("code");
+  code.textContent = aud || "(the token carried none)";
+  code.style.cssText = "display:block;margin:8px 0;font-family:'IBM Plex Mono',monospace;font-size:11px;" +
+    "word-break:break-all;background:#0E0C09;border:1px solid var(--line);border-radius:2px;padding:7px 9px;color:var(--ink)";
+  box.appendChild(code);
+  var row = el("div","formbar");
+  var copy = el("button","btn sm","Copy");
+  copy.onclick = function(){
+    if(navigator.clipboard) navigator.clipboard.writeText(aud);
+    copy.textContent = "Copied";
+  };
+  var hide = el("button","btn ghost sm","Dismiss");
+  hide.onclick = function(){ box.remove(); };
+  row.appendChild(copy);
+  row.appendChild(hide);
+  box.appendChild(row);
+  box.appendChild(el("div","hint","Paste it into the ACCESS_AUD variable in the Pages settings, then redeploy."));
+  document.body.appendChild(box);
+}
+
 function saveToSite(){
   var btn = $("btnSave");
   if(btn.getAttribute("data-busy")) return;
@@ -1567,6 +1592,15 @@ fetch("/api/save", {cache: "no-store"}).then(function(r){
     if(!res.body.configured){
       toast("Signed in, but saving is not configured: GITHUB_TOKEN and GITHUB_REPO are missing in the Pages settings.");
     }
+  } else if(res.body.error === "aud_mismatch"){
+    /* Signed in, but ACCESS_AUD does not match the token. Show the value the
+       token actually carries — that is exactly what belongs in the variable,
+       and it saves hunting for it in the Cloudflare dashboard. */
+    w.textContent = "AUD not set";
+    w.classList.add("warn");
+    w.classList.remove("hidden");
+    $("btnSave").classList.add("hidden");
+    audNotice((res.body.tokenAud || [])[0] || "");
   } else {
     w.textContent = "not signed in";
     w.classList.add("warn");
