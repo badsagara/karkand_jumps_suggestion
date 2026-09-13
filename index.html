@@ -1,0 +1,1432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Jump spots on Strike at Karkand — Battlefield 2">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Karkand Jump Map</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#13110D;
+  --surface:#1B1813;
+  --surface-2:#242019;
+  --surface-3:#2E2920;
+  --line:#3B3429;
+  --line-soft:#2A251E;
+  --ink:#F0E8D7;
+  --ink-2:#A99C83;
+  --ink-3:#776D5C;
+  --amber:#E9A23B;
+  --amber-deep:#9A6A1E;
+  --brick:#C4553C;
+  --d1:#8CA453; --d2:#B8AE47; --d3:#E9A23B; --d4:#DB7A38; --d5:#C4553C;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  --r:3px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  font-size:14px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:none;padding:0}
+a{color:var(--amber);text-decoration:none}
+a:hover{text-decoration:underline}
+:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+::selection{background:var(--amber-deep);color:#fff}
+
+.lbl{
+  font-family:Oswald,"IBM Plex Sans",sans-serif;
+  font-weight:500;text-transform:uppercase;letter-spacing:.12em;
+  font-size:11px;color:var(--ink-3);
+}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+
+/* ---------- shell ---------- */
+.app{display:grid;grid-template-rows:auto 1fr;min-height:100dvh}
+.topbar{
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding-block:12px;padding-inline:20px;
+  border-bottom:1px solid var(--line);
+  background:linear-gradient(180deg,#1F1B15,#17140F);
+}
+.brand{display:flex;align-items:baseline;gap:10px;min-width:0}
+.brand h1{
+  font-family:Oswald,sans-serif;font-weight:600;text-transform:uppercase;
+  letter-spacing:.06em;font-size:20px;margin:0;white-space:nowrap;
+}
+.brand h1 span{color:var(--amber)}
+.brand .sub{font-size:11px;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase;font-family:Oswald,sans-serif}
+.topbar .spacer{flex:1}
+.stat{display:flex;gap:14px;align-items:baseline}
+.stat b{font-family:Oswald,sans-serif;font-size:17px;font-weight:600;color:var(--ink)}
+.stat i{font-style:normal;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);font-family:Oswald,sans-serif}
+
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  border:1px solid var(--line);background:var(--surface-2);
+  padding:7px 12px;border-radius:var(--r);
+  font-family:Oswald,sans-serif;font-size:12px;font-weight:500;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);
+  transition:background .12s,border-color .12s,color .12s;
+}
+.btn:hover{background:var(--surface-3);color:var(--ink);border-color:#4A4133}
+.btn.on{background:var(--amber);border-color:var(--amber);color:#1A1509}
+.btn.on:hover{background:#F2AE4C;color:#1A1509}
+.btn.ghost{background:none}
+.btn.danger:hover{border-color:var(--brick);color:#E88A73}
+.btn.primary{background:var(--amber);border-color:var(--amber);color:#1A1509}
+.btn.primary:hover{background:#F2AE4C;color:#1A1509}
+.btn.sm{padding:4px 9px;font-size:11px}
+.viewonly{
+  border:1px solid var(--line);border-radius:100px;padding:4px 12px;
+  background:var(--surface-2);color:var(--ink-3);white-space:nowrap;
+}
+
+.main{display:grid;grid-template-columns:minmax(0,1fr) 408px;min-height:0}
+
+/* ---------- map ---------- */
+.mapwrap{
+  position:relative;min-width:0;overflow:hidden;
+  background:radial-gradient(120% 100% at 50% 0%,#1A1711 0%,#100E0A 100%);
+  border-right:1px solid var(--line);
+}
+.viewport{position:absolute;inset:0;overflow:hidden;cursor:grab;touch-action:none}
+.viewport.grabbing{cursor:grabbing}
+.viewport.placing{cursor:crosshair}
+.canvas{position:absolute;top:0;left:0;width:100%;transform-origin:0 0;will-change:transform}
+.canvas img{display:block;width:100%;max-width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+.placeholder{
+  width:100%;aspect-ratio:4/3;max-width:100%;
+  background:
+    repeating-linear-gradient(0deg,transparent 0 47px,rgba(233,162,59,.07) 47px 48px),
+    repeating-linear-gradient(90deg,transparent 0 47px,rgba(233,162,59,.07) 47px 48px),
+    linear-gradient(160deg,#241F17,#191610);
+  display:grid;place-content:center;text-align:center;gap:6px;
+  border:1px dashed var(--line);
+}
+.placeholder .lbl{font-size:12px;color:var(--ink-3)}
+.placeholder p{margin:0;max-width:34ch;color:var(--ink-3);font-size:12px;line-height:1.5}
+
+/* Markers sit outside the zoomed canvas and are placed in screen pixels, so
+   the numbers stay sharp however far the map is zoomed in. --pz lets them
+   grow a little with the zoom instead of shrinking against the terrain. */
+.pins{position:absolute;inset:0;pointer-events:none;--pz:1}
+.pins > .anchor,.pins > .badge{pointer-events:auto}
+.leaders{position:absolute;inset:0;width:100%;height:100%;overflow:visible;pointer-events:none}
+.leaders .casing{stroke:#0B0906;stroke-width:calc(3.5px * var(--pz));opacity:.8;stroke-linecap:round}
+.leaders .lead{stroke:var(--ink-2);stroke-width:calc(1.25px * var(--pz));opacity:.95;stroke-linecap:round}
+.leaders .lead.sel{stroke:var(--amber)}
+.leaders .dim{opacity:.16}
+
+.anchor{
+  position:absolute;padding:0;border-radius:50%;transform:translate(-50%,-50%);
+  width:calc(9px * var(--pz));height:calc(9px * var(--pz));
+  background:var(--ink);
+  box-shadow:0 0 0 calc(2px * var(--pz)) #0B0906,
+             0 0 0 calc(3px * var(--pz)) rgba(240,232,215,.38);
+}
+.anchor::after{content:"";position:absolute;inset:-8px;border-radius:50%}
+.anchor.sel{
+  background:var(--amber);
+  box-shadow:0 0 0 calc(2px * var(--pz)) #0B0906,
+             0 0 0 calc(4.5px * var(--pz)) rgba(233,162,59,.45);
+}
+.anchor.dim{opacity:.25}
+.anchor.editable{cursor:move}
+
+.badge{
+  position:absolute;transform:translate(-50%,-50%);border:0;
+  height:calc(20px * var(--pz));min-width:calc(20px * var(--pz));
+  padding:0 calc(6px * var(--pz));border-radius:calc(10px * var(--pz));
+  display:flex;align-items:center;justify-content:center;gap:calc(2px * var(--pz));
+  font-family:Oswald,sans-serif;font-weight:600;line-height:1;
+  font-size:calc(11.5px * var(--pz));color:#14110B;white-space:nowrap;
+  box-shadow:0 0 0 calc(1.5px * var(--pz)) #0B0906,
+             0 0 0 calc(3px * var(--pz)) rgba(240,232,215,.42),
+             0 calc(2px * var(--pz)) calc(6px * var(--pz)) rgba(0,0,0,.6);
+}
+.badge sup{font-size:calc(9px * var(--pz));font-weight:500;opacity:.75;line-height:1}
+.badge:hover{
+  box-shadow:0 0 0 calc(1.5px * var(--pz)) #0B0906,
+             0 0 0 calc(4px * var(--pz)) rgba(233,162,59,.55),
+             0 calc(2px * var(--pz)) calc(6px * var(--pz)) rgba(0,0,0,.6);
+  z-index:5;
+}
+.badge.sel{
+  box-shadow:0 0 0 calc(2px * var(--pz)) #0B0906,
+             0 0 0 calc(5px * var(--pz)) var(--amber),
+             0 calc(2px * var(--pz)) calc(7px * var(--pz)) rgba(0,0,0,.7);
+  z-index:6;
+}
+.badge.dim{opacity:.28}
+.badge.editable{cursor:move}
+
+.maptools{
+  position:absolute;left:14px;bottom:14px;display:flex;gap:6px;
+  background:rgba(19,17,13,.86);border:1px solid var(--line);
+  border-radius:var(--r);padding:5px;backdrop-filter:blur(6px);
+}
+.maptools button{
+  width:30px;height:28px;display:grid;place-items:center;border-radius:2px;
+  color:var(--ink-2);font-family:"IBM Plex Mono",monospace;font-size:13px;
+}
+.maptools button:hover{background:var(--surface-3);color:var(--ink)}
+.maptools .z{width:auto;padding:0 9px;font-size:11px;color:var(--ink-3);pointer-events:none}
+
+.mapbanner{
+  position:absolute;left:14px;right:14px;top:14px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  background:rgba(233,162,59,.12);border:1px solid rgba(233,162,59,.45);
+  color:#F2C079;border-radius:var(--r);padding:8px 12px;font-size:12px;
+}
+.mapbanner .lbl{color:var(--amber)}
+
+.tip{
+  position:fixed;z-index:40;pointer-events:none;
+  background:#0D0B08;border:1px solid var(--line);border-radius:2px;
+  padding:5px 9px;font-size:12px;color:var(--ink);white-space:nowrap;
+  box-shadow:var(--shadow);
+}
+
+/* ---------- side ---------- */
+.side{display:flex;flex-direction:column;min-width:0;background:var(--surface);max-height:calc(100dvh - 58px)}
+.side-scroll{overflow-y:auto;flex:1;min-height:0}
+
+.filters{padding:14px 16px;border-bottom:1px solid var(--line-soft);display:flex;flex-direction:column;gap:10px}
+.search{
+  width:100%;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);
+  padding:8px 10px;color:var(--ink);font-size:13px;
+}
+.search::placeholder{color:var(--ink-3)}
+.chips{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.chip{
+  border:1px solid var(--line);border-radius:100px;padding:3px 10px;
+  font-size:11px;letter-spacing:.04em;color:var(--ink-3);background:var(--surface-2);
+  transition:color .12s,border-color .12s,background .12s;
+}
+.chip:hover{color:var(--ink-2)}
+.chip.on{color:#1A1509;background:var(--amber);border-color:var(--amber);font-weight:600}
+
+.list{display:flex;flex-direction:column}
+.row{
+  display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:11px;align-items:start;
+  padding:11px 16px;border-bottom:1px solid var(--line-soft);text-align:left;width:100%;
+  transition:background .12s;
+}
+.row:hover{background:var(--surface-2)}
+.row.sel{background:var(--surface-3);box-shadow:inset 3px 0 0 var(--amber)}
+.row .num{
+  width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  font-family:Oswald,sans-serif;font-size:12px;font-weight:600;color:#14110B;
+}
+.row .nm{font-weight:500;line-height:1.35;overflow-wrap:anywhere}
+.row .meta{font-size:11px;color:var(--ink-3);margin-top:2px;overflow-wrap:anywhere}
+.row .cnt{font-size:11px;color:var(--ink-3);font-family:"IBM Plex Mono",monospace;padding-top:5px;white-space:nowrap}
+
+.empty{padding:26px 20px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+.empty h2{font-family:Oswald,sans-serif;font-size:15px;text-transform:uppercase;letter-spacing:.1em;margin:0;color:var(--ink)}
+.empty ol{margin:0;padding-left:18px;color:var(--ink-2);font-size:13px;display:flex;flex-direction:column;gap:7px}
+.empty ol b{color:var(--ink);font-weight:500}
+
+/* ---------- detail ---------- */
+.detail{padding:16px;display:flex;flex-direction:column;gap:14px}
+.detail-top{display:flex;justify-content:space-between;gap:12px;align-items:start}
+.detail h2,.form h2{
+  font-family:Oswald,sans-serif;font-weight:600;font-size:19px;line-height:1.2;margin:0;
+  text-wrap:balance;overflow-wrap:anywhere;
+}
+.detail .coords{font-size:11px;color:var(--ink-3);margin-top:3px}
+
+.jump{border:1px solid var(--line-soft);border-radius:var(--r);background:var(--surface-2);overflow:hidden}
+.jump.open{border-color:var(--line)}
+.jhead{
+  display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:10px;align-items:center;
+  width:100%;text-align:left;padding:10px 12px;
+}
+.jhead:hover{background:var(--surface-3)}
+.jhead .jn{
+  width:22px;height:22px;border-radius:50%;display:grid;place-items:center;
+  font-family:Oswald,sans-serif;font-size:11px;font-weight:600;color:#14110B;
+}
+.jhead .jt{font-weight:500;line-height:1.3;overflow-wrap:anywhere}
+.jhead .js{font-size:11px;color:var(--ink-3);margin-top:1px}
+.jhead .cv{font-size:11px;color:var(--ink-3);font-family:"IBM Plex Mono",monospace}
+.jbody{padding:0 12px 13px;display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line-soft)}
+.jbody .lbl{display:block;margin-bottom:6px}
+
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.fact{background:var(--bg);border:1px solid var(--line-soft);border-radius:var(--r);padding:9px 11px}
+.fact .lbl{display:block;margin-bottom:3px}
+.fact .v{font-family:Oswald,sans-serif;font-size:14px;letter-spacing:.03em}
+.bars{display:flex;gap:3px;margin-top:4px}
+.bars i{display:block;width:15px;height:6px;border-radius:1px;background:var(--line)}
+
+.tech{
+  white-space:pre-wrap;background:var(--bg);border-left:2px solid var(--amber-deep);
+  padding:11px 13px;font-size:13px;line-height:1.65;color:var(--ink);
+  border-radius:0 var(--r) var(--r) 0;overflow-wrap:anywhere;
+}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:11px;color:var(--ink-2);border:1px solid var(--line);border-radius:2px;padding:2px 7px;background:var(--bg)}
+
+.vids{display:flex;flex-direction:column;gap:11px}
+.vid{border:1px solid var(--line-soft);border-radius:var(--r);background:var(--bg);overflow:hidden}
+.vid-head{display:flex;justify-content:space-between;gap:10px;align-items:baseline;padding:9px 11px 7px}
+.vid-title{font-size:13px;font-weight:500;overflow-wrap:anywhere}
+.vid-out{font-size:11px;white-space:nowrap;font-family:Oswald,sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.stage{
+  display:block;width:100%;aspect-ratio:16/9;max-width:100%;position:relative;cursor:pointer;
+  background:linear-gradient(140deg,#221E17,#14120D);
+  border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);
+}
+.stage.live{cursor:default}
+.stage .play{
+  position:absolute;inset:0;display:grid;place-content:center;gap:7px;justify-items:center;
+  color:var(--ink-2);font-family:Oswald,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+}
+.stage .play svg{width:38px;height:38px;opacity:.85}
+.stage:hover .play{color:var(--amber)}
+.stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.stage .thumb{
+  position:absolute;inset:0;width:100%;height:100%;max-width:100%;
+  object-fit:cover;opacity:.5;transition:opacity .15s;
+}
+.stage:hover .thumb{opacity:.72}
+.stage .play{text-shadow:0 1px 6px rgba(0,0,0,.85)}
+.vid-note{margin:0;padding:8px 11px;font-size:12px;color:var(--ink-2);overflow-wrap:anywhere}
+.fallback{padding:7px 11px;font-size:11px;color:var(--ink-3);border-top:1px solid var(--line-soft)}
+
+/* ---------- suggestion sheet ---------- */
+.modal{
+  position:fixed;inset:0;z-index:80;background:rgba(8,7,5,.74);
+  display:grid;place-items:center;padding:20px;overflow-y:auto;
+}
+.sheet{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  width:min(520px,100%);box-shadow:var(--shadow);
+  max-height:calc(100dvh - 40px);display:flex;flex-direction:column;
+}
+.sheet-head{
+  display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+  padding:15px 18px 11px;border-bottom:1px solid var(--line-soft);
+}
+.sheet-head h2{font-family:Oswald,sans-serif;font-weight:600;font-size:17px;margin:0;letter-spacing:.02em}
+.sheet-body{padding:16px 18px;overflow-y:auto;display:flex;flex-direction:column;gap:13px}
+.sheet-foot{
+  padding:12px 18px 15px;border-top:1px solid var(--line-soft);
+  display:flex;gap:9px;flex-wrap:wrap;align-items:center;
+}
+.ctx{
+  background:var(--surface-2);border:1px solid var(--line-soft);border-radius:var(--r);
+  padding:9px 11px;font-size:13px;color:var(--ink-2);overflow-wrap:anywhere;
+}
+.ctx b{color:var(--ink);font-weight:500}
+.sg-status{font-size:12px;color:var(--ink-3);flex:1;min-width:120px}
+.sg-status.bad{color:#E88A73}
+.done{padding:28px 20px;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+.done h3{font-family:Oswald,sans-serif;font-size:16px;margin:0;letter-spacing:.04em;text-transform:uppercase}
+.done p{margin:0;color:var(--ink-2);font-size:13.5px;max-width:40ch}
+
+/* ---------- form ---------- */
+.form{display:flex;flex-direction:column;gap:13px;padding:16px}
+.field{display:flex;flex-direction:column;gap:5px}
+.field input[type=text],.field textarea,.field select{
+  background:var(--bg);border:1px solid var(--line);border-radius:var(--r);
+  padding:8px 10px;font-size:13px;color:var(--ink);width:100%;
+}
+.field textarea{resize:vertical;min-height:112px;line-height:1.6;font-family:inherit}
+.diffpick{display:flex;gap:5px}
+.diffpick button{
+  flex:1;border:1px solid var(--line);border-radius:var(--r);padding:7px 0;
+  font-family:Oswald,sans-serif;font-size:13px;color:var(--ink-3);background:var(--surface-2);
+}
+.diffpick button.on{color:#14110B;font-weight:600}
+.vrow{border:1px solid var(--line-soft);border-radius:var(--r);padding:10px;display:flex;flex-direction:column;gap:7px;background:var(--surface-2)}
+.vrow .vhead{display:flex;justify-content:space-between;align-items:center}
+.vrow input{background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:6px 8px;font-size:12px;width:100%}
+.vrow.bad{border-color:var(--brick)}
+.vrow input.bad{border-color:var(--brick)}
+.vrow .err{font-size:11px;color:#E88A73;line-height:1.45}
+.formbar{display:flex;gap:8px;flex-wrap:wrap;padding-top:2px}
+.hint{font-size:11px;color:var(--ink-3);line-height:1.5}
+.sep{height:1px;background:var(--line-soft);margin:2px 0}
+
+.toast{
+  position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;
+  background:#0D0B08;border:1px solid var(--line);border-left:3px solid var(--amber);
+  padding:10px 16px;border-radius:var(--r);font-size:13px;box-shadow:var(--shadow);
+  max-width:min(90vw,420px);
+}
+.hidden{display:none!important}
+
+@media (max-width:900px){
+  .main{grid-template-columns:1fr;grid-template-rows:auto auto}
+  .mapwrap{border-right:none;border-bottom:1px solid var(--line);height:56vh;min-height:320px}
+  .side{max-height:none}
+  .side-scroll{overflow:visible}
+  .topbar{padding-inline:16px;gap:10px}
+  .brand h1{font-size:17px}
+}
+@media (max-width:620px){
+  .brand .sub{display:none}
+  .topbar{padding-block:10px}
+  .stat{gap:10px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+</style>
+<style>html,body{margin:0}img{max-width:100%}.hidden{display:none!important}</style>
+</head>
+<body>
+
+
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <h1>Karkand <span>Jump</span> Map</h1>
+      <span class="sub">Battlefield&nbsp;2 · Strike at Karkand</span>
+    </div>
+    <div class="spacer"></div>
+    <div class="stat">
+      <div><b id="statSpots">0</b> <i>spots</i></div>
+      <div><b id="statJumps">0</b> <i>jumps</i></div>
+      <div><b id="statVids">0</b> <i>clips</i></div>
+    </div>
+  </header>
+
+  <div class="main">
+    <div class="mapwrap">
+      <div class="viewport" id="viewport">
+        <div class="canvas" id="canvas" style="--z:1">
+          <div class="placeholder" id="placeholder">
+            <span class="lbl">No minimap loaded</span>
+            <p>The minimap image is missing from this deploy.</p>
+          </div>
+          <img id="mapimg" class="hidden" alt="Strike at Karkand minimap">
+        </div>
+        <div class="pins" id="pins">
+          <svg class="leaders" id="leaders" aria-hidden="true"></svg>
+        </div>
+      </div>
+      <div class="maptools">
+        <button id="zOut" title="Zoom out">−</button>
+        <span class="z mono" id="zLabel">100%</span>
+        <button id="zIn" title="Zoom in">+</button>
+        <button id="zFit" title="Fit to view">⤢</button>
+      </div>
+    </div>
+
+    <aside class="side">
+      <div class="filters">
+        <input class="search" id="q" type="text" placeholder="Search name, technique, tag…" autocomplete="off">
+        <div class="chips" id="catChips"></div>
+        <div class="chips" id="diffChips"></div>
+        <button class="btn ghost hidden" id="btnPropose" style="align-self:flex-start">Propose a jump</button>
+      </div>
+      <div class="side-scroll" id="sideScroll">
+        <div id="listPane"></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+
+<script>
+(function(){
+"use strict";
+
+/* Jump type is a free-text field. These are only suggestions offered while
+   typing, and the map below rewrites the ids used by earlier versions. */
+var CAT_PRESETS = ["Bunny hop","C-jump","Partner boost","Dolphin dive","Vehicle boost","Ledge / ladder"];
+var LEGACY_CATS = {
+  bhop:"Bunny hop", cjump:"C-jump", boost:"Partner boost",
+  dive:"Dolphin dive", veh:"Vehicle boost", ledge:"Ledge / ladder", other:""
+};
+var DIFF = ["","Easy","Fairly easy","Moderate","Hard","Very hard"];
+var DCOL = ["","var(--d1)","var(--d2)","var(--d3)","var(--d4)","var(--d5)"];
+var SVGNS = "http://www.w3.org/2000/svg";
+
+var state = {
+  spots: [], map: null, sel: null, edit: false,
+  editing: null,          // {spot: spotId, jump: jumpId|null}
+  openJump: null,
+  q: "", cat: null, diff: null,
+  db: null, assets: null, downloads: null,
+  userMoved: false,
+  canEdit: false, roleKnown: true, loadError: false
+};
+var z = 1, tx = 0, ty = 0;
+
+/* ---------- helpers ---------- */
+function $(id){ return document.getElementById(id); }
+function el(tag, cls, txt){
+  var n = document.createElement(tag);
+  if(cls) n.className = cls;
+  if(txt != null) n.textContent = txt;
+  return n;
+}
+function uid(p){ return (p||"s") + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+function catOf(j){
+  var c = (j && j.cat || "").trim();
+  if(Object.prototype.hasOwnProperty.call(LEGACY_CATS, c)) return LEGACY_CATS[c];
+  return c;
+}
+function allCats(){
+  var counts = {}, names = [];
+  state.spots.forEach(function(s){
+    (s.jumps||[]).forEach(function(j){
+      var c = catOf(j);
+      if(!c) return;
+      if(counts[c] === undefined){ counts[c] = 0; names.push(c); }
+      counts[c]++;
+    });
+  });
+  names.sort(function(a,b){ return counts[b] - counts[a] || a.localeCompare(b); });
+  return names.map(function(n){ return {name:n, count:counts[n]}; });
+}
+function clamp(v,a,b){ return Math.max(a, Math.min(b, v)); }
+function plural(n, one, many){ return n === 1 ? one : many; }
+function toast(msg){
+  var t = el("div","toast",msg);
+  document.body.appendChild(t);
+  setTimeout(function(){ t.remove(); }, 3600);
+}
+function ytId(url){
+  if(!url) return null;
+  var m = String(url).match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+function ytStart(url){
+  var m = String(url||"").match(/[?&](?:t|start)=(\d+h)?(\d+m)?(\d+)?s?/);
+  if(!m) return 0;
+  if(!m[1] && !m[2] && !m[3]){
+    var n = String(url).match(/[?&](?:t|start)=(\d+)/);
+    return n ? parseInt(n[1],10) : 0;
+  }
+  return (m[1]?parseInt(m[1],10):0)*3600 + (m[2]?parseInt(m[2],10):0)*60 + (m[3]?parseInt(m[3],10):0);
+}
+function driveId(url){
+  var m = String(url||"").match(/drive\.google\.com\/(?:file\/d\/|open\?(?:[^#]*&)?id=|uc\?(?:[^#]*&)?id=)([A-Za-z0-9_-]{10,})/);
+  return m ? m[1] : null;
+}
+function isLink(url){ return /^https?:\/\//i.test(String(url||"").trim()); }
+function sortSpots(a,b){
+  return (a.createdAt||0) - (b.createdAt||0) || String(a.id).localeCompare(String(b.id));
+}
+function ordered(){ return state.spots.slice().sort(sortSpots); }
+function getSpot(id){ return state.spots.filter(function(s){ return s.id === id; })[0]; }
+function getJump(s, jid){ return (s && s.jumps || []).filter(function(j){ return j.id === jid; })[0]; }
+function clipCount(s){
+  return (s.jumps||[]).reduce(function(a,j){ return a + (j.videos||[]).length; }, 0);
+}
+function diffRange(s){
+  var ds = (s.jumps||[]).map(function(j){ return j.diff || 3; });
+  if(!ds.length) return [3,3];
+  return [Math.min.apply(null, ds), Math.max.apply(null, ds)];
+}
+/* A spot is named by its own label when an older file carries one, otherwise
+   by the first jump recorded there. */
+function spotLabel(s){
+  if(s && s.name) return s.name;
+  var j = s && (s.jumps||[])[0];
+  return (j && j.name) || "Unnamed spot";
+}
+function newJump(){
+  return {id: uid("j"), name:"", route:"", cat:"", diff:3, kit:"", tech:"", tags:[], videos:[]};
+}
+
+/* Accepts both the current shape and the earlier one-jump-per-spot shape. */
+function normalize(raw, id){
+  var s = {
+    id: id || raw.id || uid(),
+    name: raw.name || "",
+    x: typeof raw.x === "number" ? raw.x : 0.5,
+    y: typeof raw.y === "number" ? raw.y : 0.5,
+    ox: typeof raw.ox === "number" ? raw.ox : 0,
+    oy: typeof raw.oy === "number" ? raw.oy : (raw.y > 0.14 ? -0.05 : 0.05),
+    createdAt: raw.createdAt || 0,
+    jumps: []
+  };
+  if(Array.isArray(raw.jumps) && raw.jumps.length){
+    s.jumps = raw.jumps.map(function(j){
+      return {
+        id: j.id || uid("j"),
+        name: j.name || "", route: j.route || "", cat: catOf(j),
+        diff: j.diff || 3, kit: j.kit || "", tech: j.tech || "",
+        tags: j.tags || [], videos: j.videos || []
+      };
+    });
+  } else if(raw.tech || raw.route || (raw.videos && raw.videos.length) || raw.cat){
+    s.jumps = [{
+      id: uid("j"), name: raw.name || "", route: raw.route || "", cat: catOf(raw),
+      diff: raw.diff || 3, kit: raw.kit || "", tech: raw.tech || "",
+      tags: raw.tags || [], videos: raw.videos || []
+    }];
+  }
+  return s;
+}
+
+/* ---------- data (read-only) ---------- */
+var MAP_CANDIDATES = ["map.png","map.jpg","map.jpeg","map.webp"];
+
+/* No browser storage in the public build: jumps.json is the only source. */
+function saveLocal(){}
+function persistSpot(){}
+function dropSpot(){}
+function persistMap(){}
+function adopt(data){
+  state.spots = (data.spots||[]).map(function(s){ return normalize(s, s.id); });
+  if(data.mapFile) state.map = {src: data.mapFile};
+}
+
+function mapUrl(name){
+  if(/^(data:|https?:)/i.test(name)) return name;
+  try{ return new URL(name, document.baseURI).href; }catch(e){ return name; }
+}
+function mapMissing(tried){
+  var ph = $("placeholder");
+  if(!ph) return;
+  var lbl = ph.querySelector(".lbl"), p = ph.querySelector("p");
+  if(lbl) lbl.textContent = "Minimap not found";
+  if(p) p.textContent = "Nothing answered at " + (tried || "map.png") +
+    ". Put map.png in the same folder as index.html" +
+    (state.canEdit ? ", or hit Map to pick a file." : ".");
+}
+function setMapSrc(src){
+  var img = $("mapimg");
+  if(img.getAttribute("src") === src) return;
+  img.onload = function(){ fit(); render(); };
+  img.onerror = function(){
+    img.removeAttribute("src");
+    state.map = null;
+    saveLocal();
+    mapMissing(src);
+    render();
+  };
+  img.src = src;
+}
+function resolveMap(){
+  if(state.map && state.map.data){ setMapSrc(state.map.data); render(); return; }
+  var list = MAP_CANDIDATES.slice();
+  if(state.map && state.map.src && list.indexOf(state.map.src) === -1) list.unshift(state.map.src);
+  var i = 0;
+  (function probe(){
+    if(i >= list.length){
+      state.map = null;
+      mapMissing(mapUrl(MAP_CANDIDATES[0]));
+      render();
+      return;
+    }
+    var name = list[i++], url = mapUrl(name);
+    var test = new Image();
+    test.onload = function(){
+      state.map = {src: name};
+      saveLocal();
+      setMapSrc(url);
+      render();
+    };
+    test.onerror = probe;
+    test.src = url;
+  })();
+}
+
+/* ---------- map transform ---------- */
+var viewport = $("viewport"), canvas = $("canvas");
+function applyT(){
+  canvas.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + z + ")";
+  $("zLabel").textContent = Math.round(z*100) + "%";
+  placeMarkers();
+}
+function fit(){
+  measure();
+  var vw = viewport.clientWidth, vh = viewport.clientHeight;
+  var ch = baseH || vw * 0.75;
+  if(!vw || !ch) return;
+  z = clamp(Math.min(1, vh/ch), 0.2, 4);
+  tx = (vw - vw*z)/2;
+  ty = (vh - ch*z)/2;
+  applyT();
+}
+function zoomAt(cx, cy, factor){
+  var r = viewport.getBoundingClientRect();
+  var px = cx - r.left, py = cy - r.top;
+  var nz = clamp(z*factor, 0.2, 8), k = nz/z;
+  tx = px - k*(px - tx);
+  ty = py - k*(py - ty);
+  z = nz; state.userMoved = true; applyT();
+}
+function centerPoint(){
+  var r = viewport.getBoundingClientRect();
+  return [r.left + viewport.clientWidth/2, r.top + viewport.clientHeight/2];
+}
+$("zIn").onclick  = function(){ var c = centerPoint(); zoomAt(c[0], c[1], 1.25); };
+$("zOut").onclick = function(){ var c = centerPoint(); zoomAt(c[0], c[1], 0.8); };
+$("zFit").onclick = fit;
+viewport.addEventListener("wheel", function(e){
+  e.preventDefault();
+  zoomAt(e.clientX, e.clientY, e.deltaY < 0 ? 1.12 : 0.89);
+}, {passive:false});
+
+var pan = null;
+viewport.addEventListener("pointerdown", function(e){
+  if(e.target.closest(".anchor") || e.target.closest(".badge")) return;
+  pan = {x:e.clientX, y:e.clientY, tx:tx, ty:ty, moved:false};
+  viewport.classList.add("grabbing");
+  try{ viewport.setPointerCapture(e.pointerId); }catch(err){}
+});
+viewport.addEventListener("pointermove", function(e){
+  if(!pan) return;
+  var dx = e.clientX - pan.x, dy = e.clientY - pan.y;
+  if(Math.abs(dx) > 3 || Math.abs(dy) > 3){ pan.moved = true; state.userMoved = true; }
+  tx = pan.tx + dx; ty = pan.ty + dy; applyT();
+});
+viewport.addEventListener("pointerup", function(e){
+  var was = pan;
+  pan = null;
+  viewport.classList.remove("grabbing");
+  if(was && !was.moved && state.proposing) addSpotAt(e.clientX, e.clientY);
+});
+viewport.addEventListener("pointercancel", function(){ pan = null; viewport.classList.remove("grabbing"); });
+
+function targetBox(){
+  return (state.map ? $("mapimg") : $("placeholder")).getBoundingClientRect();
+}
+function addSpotAt(cx, cy){
+  if(!state.proposing) return;
+  var r = targetBox();
+  var x = (cx - r.left) / r.width, y = (cy - r.top) / r.height;
+  if(x < 0 || x > 1 || y < 0 || y > 1) return;
+  stopProposing();
+  openSuggest({kind: "new", x: x, y: y});
+}
+
+/* ---------- markers ---------- */
+/* Anchors, badges and leaders live in the un-zoomed overlay and are placed in
+   screen pixels from the canvas transform. Nothing here is ever rasterised at
+   the map's scale, so the numbers stay crisp at 600%. */
+var pins = $("pins"), leaders = $("leaders");
+var baseW = 0, baseH = 0, markers = [];
+
+function measure(){
+  baseW = canvas.offsetWidth || viewport.clientWidth;
+  baseH = canvas.offsetHeight || baseW * 0.75;
+}
+function pinScale(){
+  return Math.min(1.8, Math.max(1, 1 + (z - 1) * 0.13));
+}
+function placeMarkers(){
+  if(!baseW || !baseH) measure();
+  pins.style.setProperty("--pz", pinScale());
+  for(var i = 0; i < markers.length; i++){
+    var m = markers[i], s = m.spot;
+    var ax = tx + z * s.x * baseW,                  ay = ty + z * s.y * baseH;
+    var bx = tx + z * (s.x + (s.ox||0)) * baseW,    by = ty + z * (s.y + (s.oy||0)) * baseH;
+    m.dot.style.left   = ax + "px"; m.dot.style.top   = ay + "px";
+    m.badge.style.left = bx + "px"; m.badge.style.top = by + "px";
+    if(m.casing){
+      m.casing.setAttribute("x1", ax); m.casing.setAttribute("y1", ay);
+      m.casing.setAttribute("x2", bx); m.casing.setAttribute("y2", by);
+      m.line.setAttribute("x1", ax);   m.line.setAttribute("y1", ay);
+      m.line.setAttribute("x2", bx);   m.line.setAttribute("y2", by);
+    }
+  }
+}
+
+var tipEl = null;
+function showTip(e, text){
+  hideTip();
+  tipEl = el("div","tip",text);
+  document.body.appendChild(tipEl);
+  moveTip(e);
+}
+function moveTip(e){
+  if(!tipEl) return;
+  tipEl.style.left = clamp(e.clientX + 12, 6, window.innerWidth - tipEl.offsetWidth - 6) + "px";
+  tipEl.style.top = (e.clientY - 34) + "px";
+}
+function hideTip(){ if(tipEl){ tipEl.remove(); tipEl = null; } }
+
+function dragHandle(){}
+
+function drawLeaders(){
+  while(leaders.firstChild) leaders.removeChild(leaders.firstChild);
+  markers.forEach(function(m){
+    var casing = document.createElementNS(SVGNS, "line");
+    var line   = document.createElementNS(SVGNS, "line");
+    casing.setAttribute("class", "casing" + (m.dim ? " dim" : ""));
+    line.setAttribute("class", "lead" + (m.sel ? " sel" : m.dim ? " dim" : ""));
+    leaders.appendChild(casing);
+    leaders.appendChild(line);
+    m.casing = casing; m.line = line;
+  });
+}
+
+function renderMarkers(){
+  for(var n = pins.childNodes.length - 1; n >= 0; n--){
+    if(pins.childNodes[n] !== leaders) pins.removeChild(pins.childNodes[n]);
+  }
+  markers = [];
+  var visible = filtered().map(function(s){ return s.id; });
+
+  ordered().forEach(function(s, i){
+    var dim = visible.indexOf(s.id) === -1;
+    var sel = state.sel === s.id;
+    var range = diffRange(s);
+    var color = DCOL[range[0]] || DCOL[3];
+    var label = spotLabel(s) + " · " + (s.jumps||[]).length + " " + plural((s.jumps||[]).length, "jump", "jumps");
+
+    var dot = el("button","anchor");
+    dot.setAttribute("aria-label", label);
+    if(dim) dot.classList.add("dim");
+    if(sel) dot.classList.add("sel");
+    if(state.edit) dot.classList.add("editable");
+    dragHandle(dot, s, function(nx, ny){ s.x = clamp(nx, 0, 1); s.y = clamp(ny, 0, 1); });
+    dot.addEventListener("click", function(e){ e.stopPropagation(); select(s.id); });
+    dot.addEventListener("pointerenter", function(e){ showTip(e, label); });
+    dot.addEventListener("pointermove", moveTip);
+    dot.addEventListener("pointerleave", hideTip);
+    pins.appendChild(dot);
+
+    var badge = el("button","badge");
+    badge.style.background = color;
+    badge.appendChild(el("span", null, String(i+1)));
+    if((s.jumps||[]).length > 1){
+      var sup = document.createElement("sup");
+      sup.textContent = "×" + s.jumps.length;
+      badge.appendChild(sup);
+    }
+    if(dim) badge.classList.add("dim");
+    if(sel) badge.classList.add("sel");
+    if(state.edit) badge.classList.add("editable");
+    dragHandle(badge, s, function(nx, ny){ s.ox = nx - s.x; s.oy = ny - s.y; });
+    badge.addEventListener("click", function(e){ e.stopPropagation(); select(s.id); });
+    badge.addEventListener("pointerenter", function(e){ showTip(e, label); });
+    badge.addEventListener("pointermove", moveTip);
+    badge.addEventListener("pointerleave", hideTip);
+    pins.appendChild(badge);
+
+    markers.push({spot: s, dot: dot, badge: badge, dim: dim, sel: sel});
+  });
+
+  drawLeaders();
+  placeMarkers();
+}
+
+function select(id){
+  hideTip();
+  state.sel = id;
+  state.editing = null;
+  var s = getSpot(id);
+  state.openJump = s && s.jumps && s.jumps.length ? s.jumps[0].id : null;
+  render();
+}
+
+/* ---------- filtering ---------- */
+function jumpMatches(j, q){
+  if(state.cat && catOf(j) !== state.cat) return false;
+  if(state.diff && j.diff !== state.diff) return false;
+  if(!q) return true;
+  var hay = [j.name, j.route, j.tech, j.kit, catOf(j), (j.tags||[]).join(" "),
+    (j.videos||[]).map(function(v){ return (v.title||"") + " " + (v.note||""); }).join(" ")].join(" ").toLowerCase();
+  return hay.indexOf(q) !== -1;
+}
+function filtered(){
+  var q = state.q.trim().toLowerCase();
+  return ordered().filter(function(s){
+    if(q && (s.name||"").toLowerCase().indexOf(q) !== -1 && !state.cat && !state.diff) return true;
+    if(!(s.jumps||[]).length) return !state.cat && !state.diff && !q;
+    return s.jumps.some(function(j){ return jumpMatches(j, q); });
+  });
+}
+
+/* ---------- chips + list ---------- */
+function renderChips(){
+  var cc = $("catChips"); cc.innerHTML = "";
+  allCats().forEach(function(c){
+    var b = el("button","chip" + (state.cat===c.name?" on":""), c.name + " " + c.count);
+    b.onclick = function(){
+      state.cat = state.cat===c.name ? null : c.name;
+      state.sel = null; state.editing = null;
+      render();
+    };
+    cc.appendChild(b);
+  });
+  cc.classList.toggle("hidden", !cc.children.length);
+  var dc = $("diffChips"); dc.innerHTML = "";
+  var lab = el("span","lbl","Difficulty");
+  lab.style.marginRight = "4px";
+  dc.appendChild(lab);
+  for(var d=1; d<=5; d++){
+    (function(d){
+      var b = el("button","chip" + (state.diff===d?" on":""), String(d));
+      if(state.diff===d){ b.style.background = DCOL[d]; b.style.borderColor = DCOL[d]; }
+      b.onclick = function(){
+        state.diff = state.diff===d ? null : d;
+        state.sel = null; state.editing = null;
+        render();
+      };
+      dc.appendChild(b);
+    })(d);
+  }
+}
+
+function renderList(){
+  var pane = $("listPane");
+
+  if(!state.spots.length){
+    var e = el("div","empty");
+    e.appendChild(el("h2", null, state.loadError ? "Map data missing" : "Nothing mapped yet"));
+    e.appendChild(el("div","hint", state.loadError
+      ? "jumps.json could not be loaded from this deploy. It has to sit next to index.html."
+      : "No jump spots have been published on this map so far. Check back later."));
+    pane.appendChild(e);
+    return;
+  }
+
+  var order = ordered().map(function(s){ return s.id; });
+  var rows = filtered();
+  if(!rows.length){
+    var n = el("div","empty");
+    n.appendChild(el("h2", null, "Nothing matches"));
+    var b = el("button","btn ghost","Clear filters");
+    b.onclick = function(){ state.q=""; state.cat=null; state.diff=null; $("q").value=""; render(); };
+    n.appendChild(b);
+    pane.appendChild(n);
+    return;
+  }
+
+  var list = el("div","list");
+  rows.forEach(function(s){
+    var r = el("button","row" + (state.sel===s.id ? " sel" : ""));
+    var range = diffRange(s);
+    var num = el("div","num", String(order.indexOf(s.id)+1));
+    num.style.background = DCOL[range[0]] || DCOL[3];
+    r.appendChild(num);
+
+    var mid = el("div");
+    mid.appendChild(el("div","nm", spotLabel(s)));
+    var cats = [];
+    (s.jumps||[]).forEach(function(j){
+      var l = catOf(j);
+      if(l && cats.indexOf(l) === -1) cats.push(l);
+    });
+    var meta = (s.jumps||[]).length + " " + plural((s.jumps||[]).length, "jump", "jumps");
+    if(cats.length) meta += " · " + cats.slice(0,3).join(", ");
+    meta += " · " + (range[0] === range[1] ? DIFF[range[0]] : DIFF[range[0]] + " → " + DIFF[range[1]]);
+    mid.appendChild(el("div","meta", meta));
+    r.appendChild(mid);
+
+    r.appendChild(el("div","cnt", clipCount(s) + "▸"));
+    r.onclick = function(){ select(s.id); };
+    list.appendChild(r);
+  });
+  pane.appendChild(list);
+}
+
+/* ---------- detail ---------- */
+function renderDetail(){
+  var s = getSpot(state.sel);
+  if(!s) return false;
+  var pane = $("listPane");
+  var order = ordered().map(function(x){ return x.id; });
+
+  var d = el("div","detail");
+  var top = el("div","detail-top");
+  var h = el("div");
+  h.appendChild(el("h2", null, (order.indexOf(s.id)+1) + ". " + spotLabel(s)));
+  h.appendChild(el("div","coords mono", "X " + s.x.toFixed(3) + " · Y " + s.y.toFixed(3)));
+  top.appendChild(h);
+  var back = el("button","btn ghost","← All spots");
+  back.onclick = function(){ state.sel = null; state.editing = null; render(); };
+  top.appendChild(back);
+  d.appendChild(top);
+
+  var head = el("div");
+  head.appendChild(el("span","lbl", (s.jumps||[]).length + " " + plural((s.jumps||[]).length, "jump here", "jumps here")));
+  d.appendChild(head);
+
+  var wrap = el("div");
+  wrap.style.display = "flex"; wrap.style.flexDirection = "column"; wrap.style.gap = "9px";
+  if(!(s.jumps||[]).length){
+    wrap.appendChild(el("div","hint","No jumps recorded at this spot yet."));
+  }
+  (s.jumps||[]).forEach(function(j, i){ wrap.appendChild(jumpCard(s, j, i)); });
+  d.appendChild(wrap);
+
+  pane.appendChild(d);
+  return true;
+}
+
+function jumpCard(s, j, i){
+  var open = state.openJump === j.id;
+  var card = el("div","jump" + (open ? " open" : ""));
+
+  var head = el("button","jhead");
+  var n = el("div","jn", String(i+1));
+  n.style.background = DCOL[j.diff] || DCOL[3];
+  head.appendChild(n);
+  var mid = el("div");
+  mid.appendChild(el("div","jt", j.name || "Unnamed jump"));
+  var sub = [];
+  if(catOf(j)) sub.push(catOf(j));
+  sub.push(DIFF[j.diff]);
+  if(j.route) sub.push(j.route);
+  mid.appendChild(el("div","js", sub.join(" · ")));
+  head.appendChild(mid);
+  head.appendChild(el("div","cv", (open ? "▾ " : "▸ ") + (j.videos||[]).length));
+  head.onclick = function(){
+    state.openJump = open ? null : j.id;
+    render();
+  };
+  card.appendChild(head);
+
+  if(!open) return card;
+
+  var body = el("div","jbody");
+
+  var facts = el("div","facts");
+  if(catOf(j)){
+    var f1 = el("div","fact");
+    f1.appendChild(el("span","lbl","Type"));
+    f1.appendChild(el("div","v", catOf(j)));
+    facts.appendChild(f1);
+  }
+  var f2 = el("div","fact");
+  if(!catOf(j)) f2.style.gridColumn = "1 / -1";
+  f2.appendChild(el("span","lbl","Difficulty"));
+  f2.appendChild(el("div","v", DIFF[j.diff]));
+  var bars = el("div","bars");
+  for(var k=1;k<=5;k++){
+    var b = document.createElement("i");
+    if(k <= j.diff) b.style.background = DCOL[j.diff];
+    bars.appendChild(b);
+  }
+  f2.appendChild(bars);
+  facts.appendChild(f2);
+  if(j.kit){
+    var f3 = el("div","fact");
+    f3.style.gridColumn = "1 / -1";
+    f3.appendChild(el("span","lbl","Class / conditions"));
+    f3.appendChild(el("div","v", j.kit));
+    facts.appendChild(f3);
+  }
+  body.appendChild(facts);
+
+  if(j.tech){
+    var bt = el("div");
+    bt.appendChild(el("span","lbl","Technique"));
+    bt.appendChild(el("div","tech", j.tech));
+    body.appendChild(bt);
+  }
+
+  if((j.tags||[]).length){
+    var bg = el("div");
+    bg.appendChild(el("span","lbl","Tags"));
+    var tg = el("div","tags");
+    j.tags.forEach(function(t){ tg.appendChild(el("span","tag", t)); });
+    bg.appendChild(tg);
+    body.appendChild(bg);
+  }
+
+  var bv = el("div");
+  bv.appendChild(el("span","lbl", "Clips (" + (j.videos||[]).length + ")"));
+  var vs = el("div","vids");
+  if(!(j.videos||[]).length){
+    vs.appendChild(el("div","hint","No clips attached yet."));
+  }
+  (j.videos||[]).forEach(function(v){ vs.appendChild(videoCard(v)); });
+  bv.appendChild(vs);
+  body.appendChild(bv);
+
+  if(SUGGEST.enabled){
+    var sbar = el("div","formbar");
+    var sb = el("button","btn sm","Suggest an edit");
+    sb.onclick = function(){ openSuggest({kind:"edit", spot:s, jump:j}); };
+    sbar.appendChild(sb);
+    body.appendChild(sbar);
+  }
+
+  card.appendChild(body);
+  return card;
+}
+
+/* Clips are links only — YouTube or Google Drive. Nothing is hosted here. */
+function embedFor(url){
+  var yid = ytId(url);
+  if(yid){
+    var t = ytStart(url);
+    return {
+      kind: "YouTube",
+      src: "https://www.youtube-nocookie.com/embed/" + yid + "?rel=0&modestbranding=1&autoplay=1" + (t ? "&start=" + t : ""),
+      thumb: "https://i.ytimg.com/vi/" + yid + "/hqdefault.jpg"
+    };
+  }
+  var did = driveId(url);
+  if(did) return {kind: "Drive", src: "https://drive.google.com/file/d/" + did + "/preview"};
+  return null;
+}
+
+function videoCard(v){
+  var c = el("div","vid");
+  var emb = embedFor(v.url);
+
+  var head = el("div","vid-head");
+  head.appendChild(el("span","vid-title", v.title || "Untitled clip"));
+  if(isLink(v.url)){
+    var a = el("a","vid-out", emb ? emb.kind + " ↗" : "Open ↗");
+    a.href = v.url; a.target = "_blank"; a.rel = "noopener noreferrer";
+    head.appendChild(a);
+  }
+  c.appendChild(head);
+
+  if(emb){
+    var stage = el("div","stage");
+    stage.setAttribute("role","button");
+    stage.setAttribute("tabindex","0");
+    stage.setAttribute("aria-label","Play clip");
+    if(emb.thumb){
+      /* Doubles as a live probe: where YouTube is blocked on the device the
+         thumbnail never arrives either, so a bare stage is itself the hint. */
+      var th = document.createElement("img");
+      th.className = "thumb";
+      th.alt = "";
+      th.loading = "lazy";
+      th.onerror = function(){ th.remove(); };
+      th.src = emb.thumb;
+      stage.appendChild(th);
+    }
+    var play = el("div","play");
+    play.innerHTML = '<svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><circle cx="24" cy="24" r="22" stroke="currentColor" stroke-width="2"/><path d="M20 16l13 8-13 8V16z" fill="currentColor"/></svg>';
+    play.appendChild(el("span", null, "Watch"));
+    stage.appendChild(play);
+    stage.onkeydown = function(e){ if(e.key === "Enter" || e.key === " "){ e.preventDefault(); stage.onclick(); } };
+    stage.onclick = function(){
+      if(stage.classList.contains("live")) return;
+      stage.classList.add("live");
+      stage.removeAttribute("role");
+      stage.removeAttribute("tabindex");
+      var fr = document.createElement("iframe");
+      fr.src = emb.src;
+      fr.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture";
+      /* YouTube refuses to play (error 153) when the embedding page sends no
+         Referer. Setting this explicitly overrides a stricter document-level
+         policy; nothing can supply one over file://, which is why local
+         double-click previews always fail. */
+      fr.referrerPolicy = "strict-origin-when-cross-origin";
+      fr.allowFullscreen = true;
+      fr.title = v.title || emb.kind;
+      stage.innerHTML = "";
+      stage.appendChild(fr);
+
+      var fb = el("div","fallback");
+      fb.appendChild(document.createTextNode("Player not loading? "));
+      var a2 = el("a", null, "Open on " + emb.kind + " ↗");
+      a2.href = v.url; a2.target = "_blank"; a2.rel = "noopener noreferrer";
+      fb.appendChild(a2);
+      if(emb.kind === "Drive"){
+        fb.appendChild(document.createTextNode(" Drive files play here only when sharing is set to “Anyone with the link”."));
+      }
+      c.insertBefore(fb, stage.nextSibling);
+    };
+    c.appendChild(stage);
+    if(emb.kind === "YouTube" && location.protocol === "file:"){
+      var warn = el("div","fallback");
+      warn.appendChild(el("b", null, "Opened as a local file. "));
+      warn.appendChild(document.createTextNode(
+        "YouTube blocks embeds from file:// with error 153 — it needs a page address to work from. " +
+        "Serve the folder over http (python3 -m http.server) or use the link above."));
+      c.appendChild(warn);
+    }
+  } else if(!isLink(v.url)){
+    c.appendChild(el("div","fallback","This clip has no link yet — paste a YouTube or Google Drive URL."));
+  }
+
+  if(v.note) c.appendChild(el("p","vid-note", v.note));
+  return c;
+}
+
+function renderForm(){ return false; }
+
+/* ---------- render ---------- */
+var lastView = "";
+function render(){
+  var nS = state.spots.length;
+  var nJ = state.spots.reduce(function(a,s){ return a + (s.jumps||[]).length; }, 0);
+  var nV = state.spots.reduce(function(a,s){ return a + clipCount(s); }, 0);
+  $("statSpots").textContent = nS;
+  $("statJumps").textContent = nJ;
+  $("statVids").textContent = nV;
+
+  var vk = (state.sel || "-") + "|" + (state.editing ? state.editing.jump : "-");
+  if(vk !== lastView){ lastView = vk; var sc = $("sideScroll"); if(sc) sc.scrollTop = 0; }
+
+  $("mapimg").classList.toggle("hidden", !state.map);
+  $("placeholder").classList.toggle("hidden", !!state.map);
+
+  renderChips();
+  $("listPane").innerHTML = "";
+  if(state.editing && renderForm()){ renderMarkers(); return; }
+  if(state.sel && renderDetail()){ renderMarkers(); return; }
+  renderList();
+  renderMarkers();
+}
+
+/* ---------- top bar ---------- */
+$("q").addEventListener("input", function(e){ state.q = e.target.value; state.sel = null; render(); });
+
+document.addEventListener("keydown", function(e){
+  if(e.key !== "Escape") return;
+  if(state.editing){ state.editing = null; render(); }
+  else if(state.sel){ state.sel = null; render(); }
+});
+window.addEventListener("resize", function(){ measure(); if(!state.userMoved) fit(); else placeMarkers(); });
+
+/* ---------- community suggestions ----------
+   The endpoint behind this never touches jumps.json: a proposal becomes a
+   GitHub issue for the owner to read. That is why it can stay open to
+   anonymous visitors — requiring an account to suggest one jump is how you
+   end up with no suggestions. */
+var SUGGEST = {enabled:false, captcha:null};
+var sgEl = null;
+
+function stopProposing(){
+  state.proposing = false;
+  viewport.classList.remove("placing");
+  var b = $("btnPropose");
+  if(b) b.classList.remove("on");
+}
+
+function loadTurnstile(cb){
+  if(window.turnstile) return cb();
+  var s = document.createElement("script");
+  s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+  s.async = true; s.defer = true;
+  s.onload = cb;
+  s.onerror = function(){ cb(); };
+  document.head.appendChild(s);
+}
+
+function closeSuggest(){
+  if(sgEl){ sgEl.remove(); sgEl = null; }
+}
+
+function openSuggest(ctx){
+  closeSuggest();
+  var token = null;
+
+  var wrap = el("div","modal");
+  wrap.addEventListener("pointerdown", function(e){ if(e.target === wrap) closeSuggest(); });
+
+  var sheet = el("div","sheet");
+  var head = el("div","sheet-head");
+  head.appendChild(el("h2", null, ctx.kind === "new" ? "Propose a jump" : "Suggest an edit"));
+  var x = el("button","btn ghost sm","Close");
+  x.onclick = closeSuggest;
+  head.appendChild(x);
+  sheet.appendChild(head);
+
+  var form = el("div","sheet-body");
+
+  var ctxBox = el("div","ctx");
+  if(ctx.kind === "new"){
+    ctxBox.appendChild(document.createTextNode("New jump at "));
+    ctxBox.appendChild(el("b", null, "X " + ctx.x.toFixed(3) + " · Y " + ctx.y.toFixed(3)));
+  } else {
+    ctxBox.appendChild(document.createTextNode("Editing "));
+    ctxBox.appendChild(el("b", null, ctx.jump.name || "an unnamed jump"));
+    ctxBox.appendChild(document.createTextNode(" at "));
+    ctxBox.appendChild(el("b", null, spotLabel(ctx.spot)));
+  }
+  form.appendChild(ctxBox);
+
+  function field(label, node, hint){
+    var w = el("div","field");
+    w.appendChild(el("span","lbl", label));
+    w.appendChild(node);
+    if(hint) w.appendChild(el("div","hint", hint));
+    return w;
+  }
+  function text(ph){
+    var i = document.createElement("input");
+    i.type = "text"; i.placeholder = ph || "";
+    return i;
+  }
+
+  var title = null;
+  if(ctx.kind === "new"){
+    title = text("e.g. Market wall to awning");
+    form.appendChild(field("Jump name", title));
+  }
+
+  var msg = document.createElement("textarea");
+  msg.placeholder = ctx.kind === "new"
+    ? "How is it done? Where do you start, what is the timing, anything that catches people out."
+    : "What should change — a correction to the technique, a better difficulty, an extra clip…";
+  form.appendChild(field(ctx.kind === "new" ? "How it works" : "What should change", msg));
+
+  var clip = text("YouTube or Google Drive link");
+  form.appendChild(field("Clip (optional)", clip));
+
+  var who = text("how you are known in game");
+  form.appendChild(field("Your name", who));
+
+  var contact = text("Discord, forum nick — optional");
+  form.appendChild(field("Contact (optional)", contact, "Only so the owner can ask you a question."));
+
+  var capBox = el("div");
+  form.appendChild(capBox);
+  sheet.appendChild(form);
+
+  var foot = el("div","sheet-foot");
+  var send = el("button","btn primary","Send");
+  var status = el("div","sg-status","");
+  var cancel = el("button","btn ghost","Cancel");
+  cancel.onclick = closeSuggest;
+  foot.appendChild(send);
+  foot.appendChild(cancel);
+  foot.appendChild(status);
+  sheet.appendChild(foot);
+
+  wrap.appendChild(sheet);
+  document.body.appendChild(wrap);
+  sgEl = wrap;
+  setTimeout(function(){ (title || msg).focus(); }, 30);
+
+  if(SUGGEST.captcha){
+    loadTurnstile(function(){
+      if(!window.turnstile || !sgEl) return;
+      try{
+        window.turnstile.render(capBox, {
+          sitekey: SUGGEST.captcha,
+          theme: "dark",
+          callback: function(t){ token = t; }
+        });
+      }catch(e){}
+    });
+  }
+
+  function fail(m){
+    status.textContent = m;
+    status.classList.add("bad");
+  }
+
+  send.onclick = function(){
+    status.classList.remove("bad");
+    if(!msg.value.trim()) return fail("Say what you are proposing.");
+    if(!who.value.trim()) return fail("Add a name so the owner knows who to thank.");
+    if(ctx.kind === "new" && !title.value.trim()) return fail("Give the jump a name.");
+    if(SUGGEST.captcha && !token) return fail("Finish the captcha first.");
+
+    send.disabled = true;
+    status.textContent = "Sending…";
+    fetch("/api/suggest", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        kind: ctx.kind,
+        title: title ? title.value : "",
+        message: msg.value,
+        clip: clip.value,
+        author: who.value,
+        contact: contact.value,
+        spotId: ctx.spot ? ctx.spot.id : "",
+        jumpId: ctx.jump ? ctx.jump.id : "",
+        spotLabel: ctx.spot ? spotLabel(ctx.spot) : "",
+        jumpName: ctx.jump ? ctx.jump.name : "",
+        x: ctx.kind === "new" ? ctx.x : undefined,
+        y: ctx.kind === "new" ? ctx.y : undefined,
+        turnstile: token
+      })
+    }).then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(d){ return {status:r.status, body:d}; });
+    }).then(function(res){
+      if(res.status === 200 && res.body.ok){
+        sheet.innerHTML = "";
+        var done = el("div","done");
+        done.appendChild(el("h3", null, "Sent — thank you"));
+        done.appendChild(el("p", null, "The owner of the map gets it as a note to review. If it checks out it will show up here."));
+        var c = el("button","btn primary","Close");
+        c.onclick = closeSuggest;
+        done.appendChild(c);
+        sheet.appendChild(done);
+        return;
+      }
+      send.disabled = false;
+      if(res.body.error === "captcha_failed"){
+        fail("The captcha did not check out. Try once more.");
+      } else if(res.body.error === "not_configured"){
+        fail("Suggestions are not switched on for this site yet.");
+      } else {
+        fail("Could not send (" + (res.body.error || res.status) + "). Try again later.");
+      }
+    }).catch(function(){
+      send.disabled = false;
+      fail("No answer from the server. Try again later.");
+    });
+  };
+}
+
+document.addEventListener("keydown", function(e){
+  if(e.key === "Escape"){
+    if(sgEl){ closeSuggest(); return; }
+    if(state.proposing) stopProposing();
+  }
+});
+
+if($("btnPropose")){
+  $("btnPropose").onclick = function(){
+    if(state.proposing){ stopProposing(); return; }
+    state.proposing = true;
+    viewport.classList.add("placing");
+    $("btnPropose").classList.add("on");
+    toast("Click the map where the jump happens.");
+  };
+}
+
+fetch("/api/suggest", {cache:"no-store"}).then(function(r){ return r.json(); }).then(function(d){
+  if(!d || !d.enabled) return;
+  SUGGEST.enabled = true;
+  SUGGEST.captcha = d.captcha || null;
+  var b = $("btnPropose");
+  if(b) b.classList.remove("hidden");
+  render();
+}).catch(function(){});
+
+/* ---------- boot ---------- */
+state.canEdit = false;
+state.roleKnown = true;
+render();
+fit();
+resolveMap();
+
+fetch("jumps.json", {cache:"no-store"}).then(function(r){
+  if(!r.ok) throw new Error("http " + r.status);
+  return r.json();
+}).then(function(d){
+  if(!d || !Array.isArray(d.spots)) throw new Error("shape");
+  adopt(d);
+  state.sel = null;
+  resolveMap();
+  render();
+}).catch(function(){
+  state.loadError = true;
+  render();
+});
+})();
+
+
+</script>
+
+</body>
+</html>
