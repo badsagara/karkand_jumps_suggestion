@@ -964,6 +964,16 @@ function renderDetail(){
   (s.jumps||[]).forEach(function(j, i){ wrap.appendChild(jumpCard(s, j, i)); });
   d.appendChild(wrap);
 
+  if(SUGGEST.enabled){
+    var sbar = el("div","formbar");
+    var sb = el("button","btn","Suggest an edit here");
+    sb.onclick = function(){
+      openSuggest({kind:"edit", spot:s, jump:(s.jumps||[])[0] || null});
+    };
+    sbar.appendChild(sb);
+    d.appendChild(sbar);
+  }
+
   pane.appendChild(d);
   return true;
 }
@@ -1186,7 +1196,7 @@ function render(){
 $("q").addEventListener("input", function(e){ state.q = e.target.value; state.sel = null; render(); });
 
 document.addEventListener("keydown", function(e){
-  if(e.key !== "Escape") return;
+  if(e.key !== "Escape" || sgEl) return;
   if(state.editing){ state.editing = null; render(); }
   else if(state.sel){ state.sel = null; render(); }
 });
@@ -1242,10 +1252,13 @@ function openSuggest(ctx){
   if(ctx.kind === "new"){
     ctxBox.appendChild(document.createTextNode("New jump at "));
     ctxBox.appendChild(el("b", null, "X " + ctx.x.toFixed(3) + " · Y " + ctx.y.toFixed(3)));
-  } else {
+  } else if(ctx.jump){
     ctxBox.appendChild(document.createTextNode("Editing "));
     ctxBox.appendChild(el("b", null, ctx.jump.name || "an unnamed jump"));
     ctxBox.appendChild(document.createTextNode(" at "));
+    ctxBox.appendChild(el("b", null, spotLabel(ctx.spot)));
+  } else {
+    ctxBox.appendChild(document.createTextNode("About "));
     ctxBox.appendChild(el("b", null, spotLabel(ctx.spot)));
   }
   form.appendChild(ctxBox);
