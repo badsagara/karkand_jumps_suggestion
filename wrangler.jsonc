@@ -4,15 +4,40 @@
   //   public/   static files, served by the assets binding
   //   worker.js router for /api/save and /api/suggest
   //
-  // Secrets (GITHUB_TOKEN, TURNSTILE_SECRET) and the other variables are set
-  // in the dashboard under Settings → Variables and Secrets, not here.
+  // "name" must match the Worker that already exists, otherwise a deploy
+  // creates a second one under a different address.
   "name": "karkandjumps",
   "main": "worker.js",
   "compatibility_date": "2026-01-01",
+
   "assets": {
     "directory": "./public",
     "binding": "ASSETS",
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "none"
+  },
+
+  // Plain settings live here rather than in the dashboard, so that every
+  // deploy carries them and nothing can be silently dropped. None of these
+  // is a secret: they are identifiers, not keys.
+  //
+  // Fill them in and commit.
+  "vars": {
+    "GITHUB_REPO": "badsagara/karkand_jumps_suggestion",              // "<user>/karkand-jumps"
+    "GITHUB_BRANCH": "main",
+    "JUMPS_PATH": "jumps.json",
+    "ACCESS_TEAM_DOMAIN": "dry-paper-a589",       // the part before .cloudflareaccess.com
+    "ACCESS_AUD": "",               // AUD tag; several may be comma-separated
+    "TURNSTILE_SITE_KEY": "0x4AAAAAAEysBNLdC5kyDVo7",       // public key of the captcha widget
+    "SUGGEST_LABEL": "suggestion"
   }
+
+  // The two real secrets are NOT here and must never be committed:
+  //
+  //   GITHUB_TOKEN      fine-grained PAT, Contents + Issues read/write
+  //   TURNSTILE_SECRET  secret key of the captcha widget
+  //
+  // Add them in the dashboard under Settings → Variables and Secrets → add
+  // as type Secret (or with `npx wrangler secret put GITHUB_TOKEN`).
+  // Secrets are kept across deploys.
 }
