@@ -27,7 +27,6 @@
     "SUGGEST_LABEL": "suggestion",
     "GITHUB_REPO": "badsagara/karkand_jumps_suggestion",              // "<user>/karkand-jumps"
     "GITHUB_BRANCH": "main",
-    "JUMPS_PATH": "jumps.json",
     "ACCESS_TEAM_DOMAIN": "dry-paper-a589",       // the part before .cloudflareaccess.com
     "ACCESS_AUD": "0090cc70daf99746375198890a6bfe45366df77011f6cfdb23e64c6c08b631ae",               // AUD tag; several may be comma-separated
     "TURNSTILE_SITE_KEY": "0x4AAAAAAEysBNLdC5kyDVo7",       // public key of the captcha widget
