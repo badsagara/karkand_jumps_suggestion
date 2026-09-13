@@ -1085,28 +1085,6 @@
           "videos": []
         }
       ]
-    },
-    {
-      "id": "smu0aiowifzjke",
-      "name": "",
-      "x": 0.2027881265318343,
-      "y": 0.3702520185766033,
-      "ox": 0,
-      "oy": -0.05,
-      "createdAt": 1789332748434,
-      "jumps": [
-        {
-          "id": "jmu0aiowiq3y0r",
-          "name": "test_fountain2",
-          "route": "",
-          "cat": "",
-          "diff": 3,
-          "kit": "",
-          "tech": "test_fountain2",
-          "tags": [],
-          "videos": []
-        }
-      ]
     }
   ]
 }
