@@ -121,7 +121,7 @@ export async function onRequestPost({ request, env }) {
 
 /* ---------- Cloudflare Access ---------- */
 
-async function verifyAccess(request, env) {
+export async function verifyAccess(request, env) {
   const team = env.ACCESS_TEAM_DOMAIN;
   const aud = env.ACCESS_AUD;
   /* Without a team domain there is nothing to verify a signature against, so

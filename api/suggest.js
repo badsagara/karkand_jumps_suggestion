@@ -160,7 +160,11 @@ function clean(v, max) {
 /* The visitor's own words go in a blockquote so they cannot forge the
    structured fields above them. */
 function quote(text) {
-  return text.split("\n").map(function (l) { return "> " + l; }).join("\n");
+  /* `&lt;!--` renders as the literal characters "<!--" and opens nothing, so
+     the visitor's text still reads exactly as they wrote it while losing the
+     ability to plant a payload block of its own above the real one. */
+  const safe = text.split("<!--").join("&lt;!--");
+  return safe.split("\n").map(function (l) { return "> " + l; }).join("\n");
 }
 
 /* A machine-readable copy, so a proposal can later be applied without

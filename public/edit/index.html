@@ -332,6 +332,33 @@ a.btn,a.btn:hover{text-decoration:none}
 .hint{font-size:11px;color:var(--ink-3);line-height:1.5}
 .sep{height:1px;background:var(--line-soft);margin:2px 0}
 
+.sugwrap{position:fixed;inset:0;z-index:70}
+.sugscrim{position:absolute;inset:0;background:rgba(8,7,5,.6)}
+.sugpanel{
+  position:absolute;top:0;right:0;bottom:0;width:min(96vw,460px);
+  background:var(--surface);border-left:1px solid var(--line);box-shadow:var(--shadow);
+  display:flex;flex-direction:column;
+}
+.sughead{display:flex;align-items:center;gap:10px;padding:13px 16px;border-bottom:1px solid var(--line)}
+.sughead h2{
+  flex:1;margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:15px;
+  letter-spacing:.05em;text-transform:uppercase;color:var(--ink);
+}
+.suglist{flex:1;min-height:0;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:12px}
+.sugcard{
+  border:1px solid var(--line-soft);border-radius:var(--r);background:var(--surface-2);
+  padding:12px;display:flex;flex-direction:column;gap:8px;
+}
+.sugcard h3{margin:0;font-size:13px;font-weight:600;color:var(--ink);line-height:1.4}
+.sugmeta{font-size:11px;color:var(--ink-3)}
+.sugmsg{
+  font-size:12px;line-height:1.55;color:var(--ink-2);white-space:pre-wrap;word-break:break-word;
+  border-left:2px solid var(--line);padding-left:10px;
+}
+.sugthumb{display:block;line-height:0;border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.sugthumb img{display:block;width:100%}
+.sugclip{font-size:11px;color:var(--ink-3);word-break:break-all}
+.sugempty{font-size:12px;color:var(--ink-3);line-height:1.6;padding:6px 0}
 .toast{
   position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:60;
   background:#0D0B08;border:1px solid var(--line);border-left:3px solid var(--amber);
@@ -376,7 +403,7 @@ a.btn,a.btn:hover{text-decoration:none}
     </div>
     <span class="viewonly lbl hidden" id="who" title="Signed in through Cloudflare Access"></span>
     <span class="viewonly lbl hidden" id="viewBadge" title="Only the map owner can change spots">View only</span>
-    <a class="btn ghost hidden" id="btnIssues" target="_blank" rel="noopener noreferrer">Suggestions</a>
+    <button class="btn ghost hidden" id="btnSug">Suggestions</button>
     <button class="btn primary" id="btnSave">Save to site</button>
     <button class="btn hidden" id="btnEdit">Edit</button>
     <button class="btn ghost hidden" id="btnMap">Map</button>
@@ -1337,6 +1364,8 @@ function renderForm(){
     vlist.appendChild(row);
   }
   (j.videos||[]).forEach(addVideoRow);
+  /* Offered by a suggestion, not yet part of the jump: Cancel discards it. */
+  if(PENDING_CLIP && PENDING_CLIP.jump === j.id){ addVideoRow(PENDING_CLIP.video); PENDING_CLIP = null; }
   vwrap.appendChild(vlist);
   var addv = el("button","btn ghost","+ Add clip");
   addv.type = "button"; addv.style.alignSelf = "flex-start";
@@ -1577,6 +1606,294 @@ function saveToSite(){
 }
 $("btnSave").onclick = saveToSite;
 
+/* ---------- suggestions ---------- */
+/* A suggestion is a stranger's text and a stranger's link. Nothing here writes
+   to the map on its own: every button fills the form and stops. What reaches
+   jumps.json is what you read, edited and pressed Save on. */
+var SUG = {items: [], repo: "", open: false, loaded: false, error: null, busy: false};
+var PENDING_CLIP = null;
+
+function sugButton(){
+  var b = $("btnSug");
+  if(!b) return;
+  b.textContent = SUG.items.length ? "Suggestions (" + SUG.items.length + ")" : "Suggestions";
+  b.classList.toggle("on", SUG.items.length > 0);
+}
+
+function loadSuggestions(){
+  SUG.busy = true;
+  if(SUG.open) paintSug();
+  return fetch("/api/suggestions", {cache: "no-store"}).then(function(r){
+    return r.json().catch(function(){ return {}; }).then(function(d){ return {status: r.status, body: d}; });
+  }).then(function(res){
+    SUG.busy = false;
+    SUG.loaded = true;
+    if(res.status === 200 && res.body.ok){
+      SUG.items = res.body.items || [];
+      SUG.repo = res.body.repo || SUG.repo;
+      SUG.error = null;
+    } else {
+      SUG.error = res.body.error || ("http " + res.status);
+    }
+    sugButton();
+    if(SUG.open) paintSug();
+  }).catch(function(){
+    SUG.busy = false; SUG.loaded = true; SUG.error = "no answer from /api/suggestions";
+    if(SUG.open) paintSug();
+  });
+}
+
+function openSug(){
+  SUG.open = true;
+  var w = $("sugwrap");
+  if(!w){
+    w = el("div","sugwrap"); w.id = "sugwrap";
+    var scrim = el("div","sugscrim"); scrim.onclick = closeSug;
+    var p = el("div","sugpanel"); p.id = "sugpanel";
+    w.appendChild(scrim); w.appendChild(p);
+    document.body.appendChild(w);
+  }
+  w.classList.remove("hidden");
+  paintSug();
+  if(!SUG.loaded) loadSuggestions();
+}
+function closeSug(){
+  SUG.open = false;
+  var w = $("sugwrap");
+  if(w) w.classList.add("hidden");
+}
+
+function paintSug(){
+  var p = $("sugpanel");
+  if(!p) return;
+  p.textContent = "";
+
+  var head = el("div","sughead");
+  head.appendChild(el("h2", null, "Suggestions"));
+  var refresh = el("button","btn ghost sm", SUG.busy ? "Loading…" : "Refresh");
+  refresh.onclick = function(){ if(!SUG.busy) loadSuggestions(); };
+  head.appendChild(refresh);
+  if(SUG.repo){
+    var gh = document.createElement("a");
+    gh.className = "btn ghost sm";
+    gh.textContent = "GitHub";
+    gh.target = "_blank"; gh.rel = "noopener noreferrer";
+    gh.href = "https://github.com/" + SUG.repo + "/issues?q=is%3Aissue+is%3Aopen";
+    head.appendChild(gh);
+  }
+  var x = el("button","btn ghost sm","Close");
+  x.onclick = closeSug;
+  head.appendChild(x);
+  p.appendChild(head);
+
+  var list = el("div","suglist");
+  if(SUG.error){
+    list.appendChild(el("div","sugempty",
+      SUG.error === "not_signed_in" ? "Your Access session expired. Reload the page and sign in again." :
+      SUG.error === "not_configured" ? "GITHUB_TOKEN or GITHUB_REPO is missing in the Worker settings." :
+      "Could not read suggestions: " + SUG.error));
+  } else if(SUG.busy && !SUG.items.length){
+    list.appendChild(el("div","sugempty","Loading…"));
+  } else if(!SUG.items.length){
+    list.appendChild(el("div","sugempty","Nothing waiting. Proposals from the public map land here."));
+  } else {
+    list.appendChild(el("div","sugempty",
+      "Somebody else wrote all of this. Watch the clip, then let the form do the rest — nothing is published until you press Save to site."));
+    SUG.items.forEach(function(it){ list.appendChild(sugCard(it)); });
+  }
+  p.appendChild(list);
+}
+
+function sugCard(it){
+  var pl = it.payload || {};
+  var c = el("div","sugcard");
+  c.appendChild(el("h3", null, it.title || ("#" + it.number)));
+
+  var bits = ["#" + it.number];
+  if(pl.author) bits.push("from " + pl.author);
+  if(it.created) bits.push(new Date(it.created).toLocaleDateString());
+  if(pl.contact) bits.push(pl.contact);
+  c.appendChild(el("div","sugmeta", bits.join(" · ")));
+
+  if(pl.message) c.appendChild(el("div","sugmsg", pl.message));
+
+  if(pl.clip){
+    var emb = embedFor(pl.clip);
+    var a = document.createElement("a");
+    a.href = pl.clip; a.target = "_blank"; a.rel = "noopener noreferrer";
+    if(emb && emb.thumb){
+      a.className = "sugthumb";
+      var img = document.createElement("img");
+      img.src = emb.thumb; img.alt = "";
+      img.loading = "lazy"; img.referrerPolicy = "no-referrer-when-downgrade";
+      a.appendChild(img);
+    } else {
+      a.className = "sugclip";
+      a.textContent = pl.clip;
+    }
+    c.appendChild(a);
+    if(emb && emb.thumb) c.appendChild(el("div","sugclip", pl.clip));
+    if(!emb) c.appendChild(el("div","sugclip","Not a YouTube or Drive link — the form will not take it as it is."));
+  }
+
+  var bar = el("div","formbar");
+  var target = sugSpot(pl);
+
+  if(!it.payload){
+    /* Written straight on GitHub, or edited afterwards — there is nothing to
+       apply, only something to read. */
+    c.appendChild(el("div","sugmeta","Opened on GitHub, not through the map — read it there."));
+  } else if(pl.kind === "new"){
+    var place = el("button","btn primary sm","Place on map");
+    place.onclick = function(){ sugPlace(pl, it); };
+    bar.appendChild(place);
+  } else {
+    var go = el("button","btn sm", target ? "Go to jump" : "Spot not found");
+    go.disabled = !target;
+    go.onclick = function(){ sugGoTo(pl); };
+    bar.appendChild(go);
+    if(target && pl.clip && embedFor(pl.clip)){
+      var addc = el("button","btn primary sm","Add this clip");
+      addc.onclick = function(){ sugAddClip(pl); };
+      bar.appendChild(addc);
+    }
+  }
+
+  var open = document.createElement("a");
+  open.className = "btn ghost sm";
+  open.textContent = "Issue"; open.href = it.url;
+  open.target = "_blank"; open.rel = "noopener noreferrer";
+  bar.appendChild(open);
+
+  var done = el("button","btn ghost danger sm","Done");
+  done.onclick = function(){ sugDone(it, done); };
+  bar.appendChild(done);
+
+  c.appendChild(bar);
+  return c;
+}
+
+/* The spot a suggestion is about. Ids win; coordinates are the fallback for a
+   spot that was deleted and re-made since the visitor wrote in. */
+function sugSpot(pl){
+  if(!pl) return null;
+  if(pl.spotId){
+    var s = getSpot(pl.spotId);
+    if(s) return s;
+  }
+  if(typeof pl.x === "number" && typeof pl.y === "number"){
+    var best = null, bd = 0.0004;   /* about 2% of the map, squared */
+    state.spots.forEach(function(s){
+      var d = (s.x - pl.x)*(s.x - pl.x) + (s.y - pl.y)*(s.y - pl.y);
+      if(d < bd){ bd = d; best = s; }
+    });
+    return best;
+  }
+  return null;
+}
+
+/* Put a normalised point in the middle of the viewport. */
+function centerOn(nx, ny, minZ){
+  measure();
+  if(!baseW || !baseH) return;
+  if(minZ && z < minZ) z = minZ;
+  tx = viewport.clientWidth/2 - nx*baseW*z;
+  ty = viewport.clientHeight/2 - ny*baseH*z;
+  state.userMoved = true;
+  applyT();
+}
+
+function sugGoTo(pl){
+  var s = sugSpot(pl);
+  if(!s){ toast("That spot is not on the map any more."); return; }
+  closeSug();
+  select(s.id);
+  if(pl.jumpId && getJump(s, pl.jumpId)){ state.openJump = pl.jumpId; render(); }
+  centerOn(s.x, s.y, 1.6);
+}
+
+/* The payload came from the internet. Sizes and ranges are checked here, on
+   the way into the form, and not assumed from what /api/suggest wrote. */
+function sugText(v, max){ return typeof v === "string" ? v.slice(0, max) : ""; }
+function sugNum(v){ return typeof v === "number" && isFinite(v) ? clamp(v, 0, 1) : null; }
+
+function sugPlace(pl, it){
+  var px = sugNum(pl.x), py = sugNum(pl.y);
+  if(px === null || py === null){
+    toast("This one carries no position — add the spot by hand.");
+    return;
+  }
+  pl = {x: px, y: py, title: sugText(pl.title, 120), jumpName: sugText(pl.jumpName, 120),
+        message: sugText(pl.message, 4000), clip: sugText(pl.clip, 500), author: sugText(pl.author, 40)};
+  state.edit = true;
+  var j = newJump();
+  j.name = pl.title || pl.jumpName || "";
+  j.tech = pl.message || "";
+  if(pl.clip && embedFor(pl.clip)){
+    j.videos.push({title: "", url: pl.clip, note: "Suggested by " + (pl.author || "a visitor")});
+  }
+  var s = {
+    id: uid(), name: "", x: pl.x, y: pl.y,
+    ox: 0, oy: pl.y > 0.14 ? -0.05 : 0.05,
+    createdAt: Date.now(), jumps: [j]
+  };
+  state.spots.push(s);
+  state.sel = s.id;
+  state.editing = {spot: s.id, jump: j.id};
+  closeSug();
+  render();
+  centerOn(s.x, s.y, 1.6);
+  toast("Placed from #" + it.number + " — check it, Save the form, then Save to site.");
+}
+
+function sugAddClip(pl){
+  var s = sugSpot(pl);
+  if(!s){ toast("That spot is not on the map any more."); return; }
+  var j = (pl.jumpId && getJump(s, pl.jumpId)) || (s.jumps || [])[0];
+  if(!j){ toast("That jump is gone."); return; }
+  /* Handed to the form, not to the jump: an untouched form that is cancelled
+     leaves the clip exactly where it was — nowhere. */
+  PENDING_CLIP = {jump: j.id, video: {title: "", url: sugText(pl.clip, 500),
+                                      note: "Suggested by " + (sugText(pl.author, 40) || "a visitor")}};
+  state.edit = true;
+  state.sel = s.id;
+  state.editing = {spot: s.id, jump: j.id};
+  closeSug();
+  render();
+  centerOn(s.x, s.y, 1.6);
+  toast("Clip added to the form. Save the form, then Save to site.");
+}
+
+function sugDone(it, btn){
+  if(btn.getAttribute("data-busy")) return;
+  btn.setAttribute("data-busy","1");
+  btn.textContent = "Closing…";
+  fetch("/api/suggestions", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({number: it.number, note: "Handled — thanks for the suggestion."})
+  }).then(function(r){
+    return r.json().catch(function(){ return {}; }).then(function(d){ return {status: r.status, body: d}; });
+  }).then(function(res){
+    if(res.status === 200 && res.body.ok){
+      SUG.items = SUG.items.filter(function(x){ return x.number !== it.number; });
+      sugButton();
+      paintSug();
+      toast("#" + it.number + " closed.");
+    } else {
+      btn.removeAttribute("data-busy");
+      btn.textContent = "Done";
+      toast("Could not close #" + it.number + " (" + (res.body.error || res.status) + ").");
+    }
+  }).catch(function(){
+    btn.removeAttribute("data-busy");
+    btn.textContent = "Done";
+    toast("No answer from /api/suggestions.");
+  });
+}
+
+$("btnSug").onclick = function(){ SUG.open ? closeSug() : openSug(); };
+
 fetch("/api/save", {cache: "no-store"}).then(function(r){
   return r.json().catch(function(){ return {}; }).then(function(d){ return {status: r.status, body: d}; });
 }).then(function(res){
@@ -1585,9 +1902,9 @@ fetch("/api/save", {cache: "no-store"}).then(function(r){
     w.textContent = res.body.email || "signed in";
     w.classList.remove("hidden");
     if(res.body.repo){
-      var gi = $("btnIssues");
-      gi.href = "https://github.com/" + res.body.repo + "/issues?q=is%3Aissue+is%3Aopen+label%3Asuggestion";
-      gi.classList.remove("hidden");
+      SUG.repo = res.body.repo;
+      $("btnSug").classList.remove("hidden");
+      loadSuggestions();
     }
     if(!res.body.configured){
       toast("Signed in, but saving is not configured: GITHUB_TOKEN and GITHUB_REPO are missing in the Pages settings.");
@@ -1613,6 +1930,7 @@ fetch("/api/save", {cache: "no-store"}).then(function(r){
 
 document.addEventListener("keydown", function(e){
   if(e.key !== "Escape") return;
+  if(SUG.open){ closeSug(); return; }
   if(state.editing){ state.editing = null; render(); }
   else if(state.sel){ state.sel = null; render(); }
 });
