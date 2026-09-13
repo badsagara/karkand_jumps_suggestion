@@ -404,6 +404,7 @@ a.btn,a.btn:hover{text-decoration:none}
     <span class="viewonly lbl hidden" id="who" title="Signed in through Cloudflare Access"></span>
     <span class="viewonly lbl hidden" id="viewBadge" title="Only the map owner can change spots">View only</span>
     <button class="btn ghost hidden" id="btnSug">Suggestions</button>
+    <button class="btn ghost" id="btnReload" title="Replace this browser's copy with what the site is serving">Reload from site</button>
     <button class="btn primary" id="btnSave">Save to site</button>
     <button class="btn hidden" id="btnEdit">Edit</button>
     <button class="btn ghost hidden" id="btnMap">Map</button>
@@ -1598,13 +1599,61 @@ function saveToSite(){
             ". Use Export to keep a copy.");
     }
   }).catch(function(){
-    toast("No answer from /api/save. Nothing was written — use Export to keep a copy.");
+    toast("No answer from /api/save — most likely an expired Access session. Nothing was written; use Export to keep a copy, then reload and sign in.");
   }).then(function(){
     btn.removeAttribute("data-busy");
     btn.textContent = "Save to site";
   });
 }
 $("btnSave").onclick = saveToSite;
+
+/* ---------- the browser's copy vs the site's copy ----------
+   The editor keeps its working state in this browser so a closed tab does not
+   lose an afternoon. That copy can fall behind the site — edits made on
+   another machine, a save from a second browser, a jumps.json committed by
+   hand. On load the page takes the file whenever its "exported" stamp is new
+   to it; when the stamp matches but the contents do not, it says so here
+   rather than quietly showing fewer spots than the public map. */
+function siteDiffers(siteCount, stamp){
+  var box = el("div","toast");
+  box.style.maxWidth = "min(92vw, 520px)";
+  box.appendChild(el("div", null,
+    "The site is serving " + siteCount + " " + plural(siteCount, "spot", "spots") +
+    ", this browser holds " + state.spots.length + ". Same file stamp, different contents — " +
+    "so this copy was edited somewhere else."));
+  var row = el("div","formbar");
+  var take = el("button","btn primary sm","Load from site");
+  take.onclick = function(){ box.remove(); reloadFromSite(true); };
+  var keep = el("button","btn ghost sm","Keep this copy");
+  keep.onclick = function(){ box.remove(); };
+  row.appendChild(take); row.appendChild(keep);
+  box.appendChild(row);
+  box.appendChild(el("div","hint","Keeping it and pressing Save to site publishes this copy over the other one."));
+  document.body.appendChild(box);
+}
+
+function reloadFromSite(skipConfirm){
+  if(!skipConfirm && state.spots.length &&
+     !confirm("Replace this browser's copy with what the site is serving?\n\nAnything you have not saved to the site will be lost.")) return;
+  var btn = $("btnReload");
+  btn.textContent = "Loading…";
+  fetch("/jumps.json", {cache: "no-store"}).then(function(r){
+    if(!r.ok) throw new Error("http " + r.status);
+    return r.json();
+  }).then(function(d){
+    if(!d || !Array.isArray(d.spots)) throw new Error("shape");
+    adopt(d, d.exported || "seed");
+    state.sel = null; state.editing = null; state.openJump = null;
+    resolveMap();
+    render();
+    toast("Loaded " + d.spots.length + " " + plural(d.spots.length, "spot", "spots") + " from the site.");
+  }).catch(function(e){
+    toast("Could not read /jumps.json (" + e.message + "). Nothing was changed.");
+  }).then(function(){
+    btn.textContent = "Reload from site";
+  });
+}
+$("btnReload").onclick = function(){ reloadFromSite(false); };
 
 /* ---------- suggestions ---------- */
 /* A suggestion is a stranger's text and a stranger's link. Nothing here writes
@@ -1638,7 +1687,10 @@ function loadSuggestions(){
     sugButton();
     if(SUG.open) paintSug();
   }).catch(function(){
-    SUG.busy = false; SUG.loaded = true; SUG.error = "no answer from /api/suggestions";
+    /* Access sends an expired session to its own login page on another
+       domain, which a fetch cannot follow — so a rejected request here
+       usually means the session, not the network. */
+    SUG.busy = false; SUG.loaded = true; SUG.error = "expired";
     if(SUG.open) paintSug();
   });
 }
@@ -1689,7 +1741,8 @@ function paintSug(){
   var list = el("div","suglist");
   if(SUG.error){
     list.appendChild(el("div","sugempty",
-      SUG.error === "not_signed_in" ? "Your Access session expired. Reload the page and sign in again." :
+      SUG.error === "not_signed_in" || SUG.error === "expired"
+        ? "Could not reach /api/suggestions. Your Access session has most likely expired — reload the page and sign in again." :
       SUG.error === "not_configured" ? "GITHUB_TOKEN or GITHUB_REPO is missing in the Worker settings." :
       "Could not read suggestions: " + SUG.error));
   } else if(SUG.busy && !SUG.items.length){
@@ -1888,7 +1941,7 @@ function sugDone(it, btn){
   }).catch(function(){
     btn.removeAttribute("data-busy");
     btn.textContent = "Done";
-    toast("No answer from /api/suggestions.");
+    toast("No answer from /api/suggestions — reload the page and sign in again.");
   });
 }
 
@@ -1955,7 +2008,10 @@ fetch("/jumps.json", {cache:"no-store"}).then(function(r){
 }).then(function(d){
   if(!d || !Array.isArray(d.spots)) return;
   var stamp = d.exported || "seed";
-  if(state.baseStamp === stamp) return;
+  if(state.baseStamp === stamp){
+    if(d.spots.length !== state.spots.length) siteDiffers(d.spots.length, stamp);
+    return;
+  }
   var hadLocal = state.spots.length > 0;
   adopt(d, stamp);
   state.sel = null; state.editing = null;
