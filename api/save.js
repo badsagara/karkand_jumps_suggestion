@@ -18,7 +18,10 @@
  *                        scoped to this one repository.
  *   GITHUB_REPO          "owner/name", e.g. "sagara/karkand-jumps"
  *   GITHUB_BRANCH        optional, defaults to "main"
- *   JUMPS_PATH           optional, defaults to "jumps.json"
+ *   JUMPS_PATH           optional, defaults to "public/jumps.json" — the path
+ *                        INSIDE THE REPOSITORY, which is not the URL. Static
+ *                        files are served out of public/, so a file committed
+ *                        to the repository root is never served at all.
  *   ACCESS_TEAM_DOMAIN   your Zero Trust team name, e.g. "first-legion"
  *                        (the part before .cloudflareaccess.com)
  *   ACCESS_AUD           the Application Audience (AUD) tag of the Access app
@@ -47,7 +50,7 @@ export async function onRequestGet({ request, env }) {
     email: identity.email || null,
     repo: env.GITHUB_REPO || null,
     branch: env.GITHUB_BRANCH || "main",
-    path: env.JUMPS_PATH || "jumps.json",
+    path: env.JUMPS_PATH || "public/jumps.json",
     configured: Boolean(env.GITHUB_TOKEN && env.GITHUB_REPO),
   });
 }
@@ -80,7 +83,7 @@ export async function onRequestPost({ request, env }) {
 
   const repo = env.GITHUB_REPO;
   const branch = env.GITHUB_BRANCH || "main";
-  const path = env.JUMPS_PATH || "jumps.json";
+  const path = env.JUMPS_PATH || "public/jumps.json";
   const api = `https://api.github.com/repos/${repo}/contents/${encodeURI(path)}`;
 
   // The Contents API needs the blob SHA of the file being replaced. Its absence

@@ -23,6 +23,8 @@
   //
   // Fill them in and commit.
   "vars": {
+    "JUMPS_PATH": "public/jumps.json",
+    "SUGGEST_LABEL": "suggestion",
     "GITHUB_REPO": "badsagara/karkand_jumps_suggestion",              // "<user>/karkand-jumps"
     "GITHUB_BRANCH": "main",
     "JUMPS_PATH": "jumps.json",
