@@ -1,7 +1,7 @@
 {
   "game": "Battlefield 2",
   "map": "Strike at Karkand",
-  "exported": "2026-09-14T14:05:46.863Z",
+  "exported": "2026-09-14T14:40:38.152Z",
   "mapFile": "map.png",
   "spots": [
     {
@@ -91,10 +91,10 @@
     {
       "id": "smtx74akkgcxe4",
       "name": "Bridge watchtower jump",
-      "x": 0.4305515191717417,
-      "y": 0.24365277708452618,
-      "ox": 0.006104369328642334,
-      "oy": 0.0284565455150311,
+      "x": 0.44754559912044556,
+      "y": 0.24986724704214774,
+      "ox": 0.014105595738901244,
+      "oy": 0.010547188008321579,
       "createdAt": 1789145639300,
       "jumps": [
         {
@@ -119,10 +119,10 @@
     {
       "id": "smtx7i5tz9hpj7",
       "name": "Bridge near Gatehouse",
-      "x": 0.4231099885431227,
-      "y": 0.24356464001171543,
-      "ox": -0.00752743081566376,
-      "oy": 0.03576850738453821,
+      "x": 0.43382529499188144,
+      "y": 0.2493858522898563,
+      "ox": -0.007525479500489041,
+      "oy": 0.014199420168670013,
       "createdAt": 1789146286343,
       "jumps": [
         {
@@ -345,8 +345,8 @@
       "name": "Hotel",
       "x": 0.3071742749399951,
       "y": 0.4769498474531991,
-      "ox": -0.0675414761688996,
-      "oy": 0.00899773645752644,
+      "ox": -0.024117955529948998,
+      "oy": -0.0020836979068538652,
       "createdAt": 1789212501067,
       "jumps": [
         {
@@ -434,8 +434,8 @@
       "name": "Container outside Warehouse",
       "x": 0.5885553377321957,
       "y": 0.2648397326254805,
-      "ox": -0.017963848631769586,
-      "oy": 0.013652522219079144,
+      "ox": -0.04344713950171464,
+      "oy": -0.01435714139549038,
       "createdAt": 1789213093265,
       "jumps": [
         {
@@ -581,8 +581,8 @@
       "name": "Hotel double jump box boost to hotel flag",
       "x": 0.3057219306655178,
       "y": 0.4941420182063522,
-      "ox": -0.03002037356258197,
-      "oy": 0.0005220904658195802,
+      "ox": -0.04281214737861366,
+      "oy": -0.013648873533766703,
       "createdAt": 1789214304456,
       "jumps": [
         {
@@ -712,6 +712,11 @@
             {
               "title": "",
               "url": "https://youtu.be/_eNdQ0U7pBg",
+              "note": ""
+            },
+            {
+              "title": "",
+              "url": "https://youtu.be/CKsydnuzx2g",
               "note": ""
             }
           ]
@@ -899,10 +904,10 @@
     {
       "id": "smtydt3tax1rdw",
       "name": "Cement wood to flag - good tactical jump",
-      "x": 0.5395894228742912,
-      "y": 0.3432929908242434,
-      "ox": -0.011398368091194322,
-      "oy": 0.02548461603646507,
+      "x": 0.5552846812739111,
+      "y": 0.35807505948892043,
+      "ox": -0.035079046556102056,
+      "oy": 0.013504615949408605,
       "createdAt": 1789217340814,
       "jumps": [
         {
@@ -927,8 +932,8 @@
     {
       "id": "smtydxvt1kc5x5",
       "name": "Down from Suburb. Vodnik jump to one of the roofs.",
-      "x": 0.26199293978056115,
-      "y": 0.30202475955358404,
+      "x": 0.2722845417728205,
+      "y": 0.29046988415720004,
       "ox": 0,
       "oy": -0.05,
       "createdAt": 1789217563717,
@@ -1095,8 +1100,8 @@
     {
       "id": "smu1bbq3194ifj",
       "name": "",
-      "x": 0.38773976223136036,
-      "y": 0.2604932889215963,
+      "x": 0.3881112293357976,
+      "y": 0.26021563824025373,
       "ox": 0.036486481063291,
       "oy": 0.0520270262746762,
       "createdAt": 1789394569165,
@@ -1128,8 +1133,8 @@
     {
       "id": "smu1bcy0c2is0v",
       "name": "",
-      "x": 0.39697283652165116,
-      "y": 0.2251515414829317,
+      "x": 0.38709770807934024,
+      "y": 0.22203993381850715,
       "ox": 0.028656140695921983,
       "oy": -0.048254277353572406,
       "createdAt": 1789394626092,
@@ -1161,8 +1166,8 @@
     {
       "id": "smu1bdx06q6z1z",
       "name": "",
-      "x": 0.3882442572146855,
-      "y": 0.2519960666702914,
+      "x": 0.3887868966415704,
+      "y": 0.24737778544944336,
       "ox": 0.047924897855829596,
       "oy": 0.03771409384643509,
       "createdAt": 1789394671446,
@@ -1185,6 +1190,777 @@
             {
               "title": "",
               "url": "https://youtu.be/jwv-rjRvS7c",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bh3055zpvm",
+      "name": "",
+      "x": 0.3874355446319121,
+      "y": 0.20953994657712313,
+      "ox": 0.018197934425793816,
+      "oy": -0.04399984731047604,
+      "createdAt": 1789394819189,
+      "jumps": [
+        {
+          "id": "jmu1bh305wee9s",
+          "name": "Jump into the yellow carriage on Train",
+          "route": "",
+          "cat": "Vodnik Jump",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/WgQCi5F8Jcg",
+              "note": ""
+            },
+            {
+              "title": "",
+              "url": "https://youtu.be/-jHElZfr7GI",
+              "note": ""
+            },
+            {
+              "title": "",
+              "url": "https://youtu.be/jXO5W8SemC0",
+              "note": ""
+            },
+            {
+              "title": "",
+              "url": "https://youtu.be/pwo02KBExjE",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bkb9bbuu07",
+      "name": "",
+      "x": 0.22277445554848002,
+      "y": 0.37757731795549,
+      "ox": 0,
+      "oy": -0.05,
+      "createdAt": 1789394969855,
+      "jumps": [
+        {
+          "id": "jmu1bkb9bl41jz",
+          "name": "Vodnik Jump into fountain near Square",
+          "route": "",
+          "cat": "Vodnik Jump",
+          "diff": 2,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/1KIEXaKaXNs",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bkyc0pl0ga",
+      "name": "",
+      "x": 0.38844176956774534,
+      "y": 0.29602707283028845,
+      "ox": -0.019719408669148508,
+      "oy": 0.022508700238742796,
+      "createdAt": 1789394999760,
+      "jumps": [
+        {
+          "id": "jmu1bkyc00jqhh",
+          "name": "Jump Train wooden boxes",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/6ApmaKxD4To",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bm0195p4iy",
+      "name": "",
+      "x": 0.35121650027498263,
+      "y": 0.1959902495103427,
+      "ox": 0,
+      "oy": -0.05,
+      "createdAt": 1789395048621,
+      "jumps": [
+        {
+          "id": "jmu1bm019d454j",
+          "name": "Vodnik jump to red blazer near Train",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/AhJGSThLD-k",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bmv18ebbeu",
+      "name": "",
+      "x": 0.5596544752865976,
+      "y": 0.32507006226580887,
+      "ox": -0.005729848515511393,
+      "oy": -0.05307994652307241,
+      "createdAt": 1789395088796,
+      "jumps": [
+        {
+          "id": "jmu1bmv181jb1q",
+          "name": "Jump from pipe to fence to small roof from both sides near Cement",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/Z6Vwt1W7TNg",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bo0hpo1ikf",
+      "name": "",
+      "x": 0.4958153808860513,
+      "y": 0.35779447569731837,
+      "ox": 0.007411072624385284,
+      "oy": 0.04545452900597707,
+      "createdAt": 1789395142525,
+      "jumps": [
+        {
+          "id": "jmu1bo0hp4ezwm",
+          "name": "Jump from cement tower to lover overhaul to the catwalk around the building",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/5xFYoMW0nVg",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1botv0bim88",
+      "name": "",
+      "x": 0.6374943695522393,
+      "y": 0.3289847444380585,
+      "ox": -0.0001646840946759598,
+      "oy": 0.04018444573370156,
+      "createdAt": 1789395180588,
+      "jumps": [
+        {
+          "id": "jmu1botv084ur9",
+          "name": "Jump back of warehouse to trashbin then to small roof",
+          "route": "",
+          "cat": "Sprint jump",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/LIjmWUOxvxM",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bpjo3ysw0f",
+      "name": "",
+      "x": 0.69498926377525,
+      "y": 0.2059422488588928,
+      "ox": 0,
+      "oy": -0.05,
+      "createdAt": 1789395214035,
+      "jumps": [
+        {
+          "id": "jmu1bpjo3wirpx",
+          "name": "Vodnik jump to roof near Factory",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/Pu9bzZwtuKw",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bpv950aph3",
+      "name": "",
+      "x": 0.6426253313471577,
+      "y": 0.1896719178008455,
+      "ox": 0,
+      "oy": -0.05,
+      "createdAt": 1789395229049,
+      "jumps": [
+        {
+          "id": "jmu1bpv959xhxm",
+          "name": "Vodnik jump back wheels up to red container near Gatehouse",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/EzImDWNpvMw",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bs7gyhwkuq",
+      "name": "",
+      "x": 0.31823850508864016,
+      "y": 0.2785294414858176,
+      "ox": 0,
+      "oy": -0.05,
+      "createdAt": 1789395338194,
+      "jumps": [
+        {
+          "id": "jmu1bs7gyrj39w",
+          "name": "Jump from roof building train ramp to Market roof",
+          "route": "",
+          "cat": "Sprint jump",
+          "diff": 4,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/3_F-eKMRaeU",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bt9dh61xmg",
+      "name": "",
+      "x": 0.25361184346762666,
+      "y": 0.4242861962816383,
+      "ox": -0.03743836700866557,
+      "oy": -0.007030664013326193,
+      "createdAt": 1789395387317,
+      "jumps": [
+        {
+          "id": "jmu1bt9dhah7wk",
+          "name": "Vodnik Jump basketball courd to roof",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/VoexggNm95o",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bu3alkd1xz",
+      "name": "",
+      "x": 0.14089582243349444,
+      "y": 0.34885685787864557,
+      "ox": 0.0004940692466142149,
+      "oy": 0.039690393449673456,
+      "createdAt": 1789395426093,
+      "jumps": [
+        {
+          "id": "jmu1bu3albhjqk",
+          "name": "Vodnik jump Suburb cement balcone pool house",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/Xm5NPqoVrck",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bva9x3b5zy",
+      "name": "",
+      "x": 0.2101497398301154,
+      "y": 0.25188532359955307,
+      "ox": 0.0006587646496809818,
+      "oy": 0.04644270142437773,
+      "createdAt": 1789395481797,
+      "jumps": [
+        {
+          "id": "jmu1bva9xxjmnd",
+          "name": "Vodnik jump Suburb cement red balcone house",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/CusPcNhd1L8",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bwf6d5atx4",
+      "name": "",
+      "x": 0.6461082421975044,
+      "y": 0.30488943605417135,
+      "ox": 0.016469042737484618,
+      "oy": -0.0009881271848376505,
+      "createdAt": 1789395534805,
+      "jumps": [
+        {
+          "id": "jmu1bwf6dgcrvo",
+          "name": "Experimental jump cement railing to big windows",
+          "route": "",
+          "cat": "",
+          "diff": 5,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/lKKqNNJASIU",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1by9mqb6aub",
+      "name": "",
+      "x": 0.2734526136076503,
+      "y": 0.2984127341356987,
+      "ox": 0.01658657834804375,
+      "oy": 0.028033643831031796,
+      "createdAt": 1789395620930,
+      "jumps": [
+        {
+          "id": "jmu1by9mq4b6bs",
+          "name": "Vodnik jump Suburb cement balcone ramp house2",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/CKsydnuzx2g",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1byzqh1m265",
+      "name": "",
+      "x": 0.19665629709188412,
+      "y": 0.3289948365247315,
+      "ox": -0.012691779196580849,
+      "oy": 0.04277599430378559,
+      "createdAt": 1789395654761,
+      "jumps": [
+        {
+          "id": "jmu1byzqhtmrhb",
+          "name": "Jump up the hill to Suburb",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/hftZRS2oF6Q",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bzo8u4ak6p",
+      "name": "",
+      "x": 0.2771798244252778,
+      "y": 0.4516411231525103,
+      "ox": -0.07731069530073448,
+      "oy": -0.006223536397476581,
+      "createdAt": 1789395686526,
+      "jumps": [
+        {
+          "id": "jmu1bzo8u9th1p",
+          "name": "Vodnik jump near square to squize onto the overhaul",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/O4P2FNP2iSA",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1cedpu5qjsw",
+      "name": "",
+      "x": 0.2437102957012026,
+      "y": 0.3409596889160766,
+      "ox": 0.01922013560021782,
+      "oy": -0.024522224122447256,
+      "createdAt": 1789396372722,
+      "jumps": [
+        {
+          "id": "jmu1cedpuiou71",
+          "name": "Fall near Square from sniper building to sign",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/xj26IN3OuoY",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1chod9jnsx7",
+      "name": "",
+      "x": 0.2357571430079704,
+      "y": 0.3416224720244456,
+      "ox": 0.004970725410742144,
+      "oy": -0.036451978760723036,
+      "createdAt": 1789396526493,
+      "jumps": [
+        {
+          "id": "jmu1chod9dyqj7",
+          "name": "Fall near Square sniper builnd to pipe and ropes",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/UZrUfHqkRNc",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1ciogmtsz78",
+      "name": "",
+      "x": 0.2748967340372339,
+      "y": 0.49434029743238916,
+      "ox": -0.0383728613232138,
+      "oy": 0.002305656484199614,
+      "createdAt": 1789396573270,
+      "jumps": [
+        {
+          "id": "jmu1ciogm3p3v9",
+          "name": "Jump Hotel Little green roof",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/DOt0TVTvtss",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1cjgz6y4397",
+      "name": "",
+      "x": 0.17848337901772424,
+      "y": 0.27130264474310456,
+      "ox": -0.016963111984098778,
+      "oy": -0.05171277904245797,
+      "createdAt": 1789396610226,
+      "jumps": [
+        {
+          "id": "jmu1cjgz6dhpwv",
+          "name": "Jump Suburb back balcony curve lie jump",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/0uAQYVz2VC0",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1cjwo9c01o9",
+      "name": "",
+      "x": 0.1814478058058002,
+      "y": 0.28266626568620806,
+      "ox": -0.006916992069380318,
+      "oy": 0.03046772227931205,
+      "createdAt": 1789396630569,
+      "jumps": [
+        {
+          "id": "jmu1cjwo9drnkd",
+          "name": "Jump Suburb front balcony curve lie jump",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/eQcnkj3ETwo",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1cl1grrt2o1",
+      "name": "",
+      "x": 0.5558665940999693,
+      "y": 0.3392334259023123,
+      "ox": -0.0322793095168975,
+      "oy": -0.00609354897921871,
+      "createdAt": 1789396683435,
+      "jumps": [
+        {
+          "id": "jmu1cl1grnx4vu",
+          "name": "Experiment Cement electrical wiring small house roof",
+          "route": "",
+          "cat": "",
+          "diff": 5,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/ogTsIHwBHSg",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1clvj0fgsl2",
+      "name": "",
+      "x": 0.22693031742471936,
+      "y": 0.3430955919078603,
+      "ox": -0.021080372668469904,
+      "oy": 0.009552039359713493,
+      "createdAt": 1789396722396,
+      "jumps": [
+        {
+          "id": "jmu1clvj06hqos",
+          "name": "Fall near Square from sniper building to overhaul and back",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/yd4aMSm64OU",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1cmdenpk8r4",
+      "name": "",
+      "x": 0.5546657221597144,
+      "y": 0.3460266250180143,
+      "ox": 0.02651516830639844,
+      "oy": -0.029314888383016824,
+      "createdAt": 1789396745567,
+      "jumps": [
+        {
+          "id": "jmu1cmdenbuehm",
+          "name": "Jump on Cement from stopblock to small roof",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/KtpdF6Bm-iA",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1cn1p5h2jlz",
+      "name": "",
+      "x": 0.2764501563679041,
+      "y": 0.4587575073013756,
+      "ox": -0.07806324063739878,
+      "oy": 0.0016468974887139942,
+      "createdAt": 1789396777049,
+      "jumps": [
+        {
+          "id": "jmu1cn1p5azjbo",
+          "name": "Vodnik jump near Square squize to small overhaul",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/LPYHNIZmbEE",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1cnpvjc5wyz",
+      "name": "",
+      "x": 0.25849890589057695,
+      "y": 0.4241725243376924,
+      "ox": 0.027173910339297835,
+      "oy": 0.015316208841189394,
+      "createdAt": 1789396808383,
+      "jumps": [
+        {
+          "id": "jmu1cnpvjgphiv",
+          "name": "Vodnik jump from basketball ring to roof",
+          "route": "",
+          "cat": "Vodnik Jump",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/ntWbjQ12HY4",
               "note": ""
             }
           ]
