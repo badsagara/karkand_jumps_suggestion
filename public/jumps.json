@@ -1,7 +1,7 @@
 {
   "game": "Battlefield 2",
   "map": "Strike at Karkand",
-  "exported": "2026-09-13T23:13:49.096Z",
+  "exported": "2026-09-14T14:05:46.863Z",
   "mapFile": "map.png",
   "spots": [
     {
@@ -1058,6 +1058,133 @@
             {
               "title": "",
               "url": "https://youtu.be/iIvzIKgf_NQ",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1b85c5mbtmt",
+      "name": "",
+      "x": 0.31578655195314453,
+      "y": 0.4502686262992097,
+      "ox": 0.025527007196388507,
+      "oy": -0.048583662505510605,
+      "createdAt": 1789394402309,
+      "jumps": [
+        {
+          "id": "jmu1b85c5yglyz",
+          "name": "Supply jump to super high roof south of square",
+          "route": "",
+          "cat": "Supply Boost Jump",
+          "diff": 4,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/FieY4AU_6BA",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bbq3194ifj",
+      "name": "",
+      "x": 0.38773976223136036,
+      "y": 0.2604932889215963,
+      "ox": 0.036486481063291,
+      "oy": 0.0520270262746762,
+      "createdAt": 1789394569165,
+      "jumps": [
+        {
+          "id": "jmu1bbq312ifgw",
+          "name": "Train jump into the yellow carriage",
+          "route": "",
+          "cat": "Sprint jump",
+          "diff": 2,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/SVOddZJ3upc",
+              "note": ""
+            },
+            {
+              "title": "",
+              "url": "https://youtu.be/zDr9NFoMnGw",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bcy0c2is0v",
+      "name": "",
+      "x": 0.39697283652165116,
+      "y": 0.2251515414829317,
+      "ox": 0.028656140695921983,
+      "oy": -0.048254277353572406,
+      "createdAt": 1789394626092,
+      "jumps": [
+        {
+          "id": "jmu1bcy0cllk2u",
+          "name": "Vodnik jump onto red carriage on Train",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/nHOxPG-X5M4",
+              "note": ""
+            },
+            {
+              "title": "",
+              "url": "https://youtu.be/8OJ6AubHJNE",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu1bdx06q6z1z",
+      "name": "",
+      "x": 0.3882442572146855,
+      "y": 0.2519960666702914,
+      "ox": 0.047924897855829596,
+      "oy": 0.03771409384643509,
+      "createdAt": 1789394671446,
+      "jumps": [
+        {
+          "id": "jmu1bdx06xqg72",
+          "name": "Vodnik jump onto yellow carriage on Train",
+          "route": "",
+          "cat": "Vodnik Jump",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/-tqWkb8ktyU",
+              "note": ""
+            },
+            {
+              "title": "",
+              "url": "https://youtu.be/jwv-rjRvS7c",
               "note": ""
             }
           ]
