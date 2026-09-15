@@ -332,6 +332,83 @@ a.btn,a.btn:hover{text-decoration:none}
 .hint{font-size:11px;color:var(--ink-3);line-height:1.5}
 .sep{height:1px;background:var(--line-soft);margin:2px 0}
 
+/* ---------- the guide page ---------- */
+.guide{
+  display:grid;grid-template-columns:232px minmax(0,1fr);
+  min-height:0;overflow-y:auto;background:var(--surface);
+}
+.gtoc{
+  border-right:1px solid var(--line);padding:18px 14px 30px;
+  display:flex;flex-direction:column;gap:3px;align-self:start;position:sticky;top:0;
+}
+.gtoc .lbl{margin:12px 0 4px;padding-left:9px}
+.gtoc .lbl:first-child{margin-top:0}
+.gtoc a{
+  display:block;padding:5px 9px;border-radius:2px;font-size:13px;
+  color:var(--ink-2);text-decoration:none;border-left:2px solid transparent;
+}
+.gtoc a:hover{background:var(--surface-2);color:var(--ink);border-left-color:var(--amber-deep)}
+.gtoc .none{font-size:12px;color:var(--ink-3);padding:4px 9px;line-height:1.5}
+.gbody-wrap{padding:26px 30px 60px;max-width:820px;display:flex;flex-direction:column;gap:26px}
+.gintro{color:var(--ink-2);font-size:13.5px;line-height:1.6;max-width:62ch}
+.ghead{
+  display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  border-bottom:1px solid var(--line);padding-bottom:7px;
+}
+.ghead h2{
+  font-family:Oswald,sans-serif;font-weight:500;font-size:13px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);margin:0;flex:1;
+}
+.gsec{display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.gsec h3{
+  font-family:Oswald,sans-serif;font-weight:600;font-size:19px;margin:0;
+  letter-spacing:.01em;color:var(--ink);
+}
+.gsec-head{display:flex;align-items:baseline;gap:9px;flex-wrap:wrap}
+.gcat{
+  font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);
+  border:1px solid var(--amber-deep);border-radius:2px;padding:1px 6px;
+}
+.gtext{font-size:14px;line-height:1.68;color:var(--ink-2);display:flex;flex-direction:column;gap:11px}
+.gtext p{margin:0}
+.gtext ul{margin:0;padding-left:20px;display:flex;flex-direction:column;gap:5px}
+.gtext li{line-height:1.6}
+.gtext strong{color:var(--ink);font-weight:600}
+.gtext code{
+  font-family:'IBM Plex Mono',monospace;font-size:.88em;background:var(--bg);
+  border:1px solid var(--line-soft);border-radius:2px;padding:1px 5px;color:var(--ink);
+}
+.gtext pre{
+  margin:0;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);
+  padding:11px 13px;overflow-x:auto;
+}
+.gtext pre code{background:none;border:none;padding:0;font-size:12.5px;line-height:1.65;white-space:pre}
+.gtext a{color:var(--amber)}
+.gsec-foot{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-top:2px}
+a.gcat-link{color:var(--amber);text-decoration:none;border-bottom:1px dotted var(--amber-deep)}
+a.gcat-link:hover{border-bottom-style:solid}
+.gempty{
+  border:1px dashed var(--line);border-radius:var(--r);padding:26px 22px;
+  display:flex;flex-direction:column;gap:9px;align-items:flex-start;
+}
+.gempty h3{font-family:Oswald,sans-serif;font-size:16px;margin:0;letter-spacing:.03em}
+.gform{
+  background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r);
+  padding:14px;display:flex;flex-direction:column;gap:11px;
+}
+.gform input,.gform textarea{
+  background:var(--bg);border:1px solid var(--line);border-radius:2px;
+  padding:7px 9px;color:var(--ink);font:inherit;font-size:13px;width:100%;
+}
+.gform textarea{min-height:190px;resize:vertical;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.6}
+.gform .row{display:flex;gap:10px;flex-wrap:wrap}
+.gform .row > label{flex:1;min-width:170px;display:flex;flex-direction:column;gap:4px}
+@media (max-width:860px){
+  .guide{grid-template-columns:1fr}
+  .gtoc{position:static;border-right:none;border-bottom:1px solid var(--line)}
+  .gbody-wrap{padding:20px 16px 48px}
+}
+
 .sugwrap{position:fixed;inset:0;z-index:70}
 .sugscrim{position:absolute;inset:0;background:rgba(8,7,5,.6)}
 .sugpanel{
@@ -401,6 +478,7 @@ a.btn,a.btn:hover{text-decoration:none}
       <div><b id="statJumps">0</b> <i>jumps</i></div>
       <div><b id="statVids">0</b> <i>clips</i></div>
     </div>
+    <button class="btn ghost" id="btnGuide" title="Techniques and game settings">Techniques</button>
     <span class="viewonly lbl hidden" id="who" title="Signed in through Cloudflare Access"></span>
     <span class="viewonly lbl hidden" id="viewBadge" title="Only the map owner can change spots">View only</span>
     <button class="btn ghost hidden" id="btnSug">Suggestions</button>
@@ -412,7 +490,7 @@ a.btn,a.btn:hover{text-decoration:none}
     <button class="btn ghost" id="btnExport">Export</button>
   </header>
 
-  <div class="main">
+  <div class="main" id="mainWrap">
     <div class="mapwrap">
       <div class="viewport" id="viewport">
         <div class="canvas" id="canvas" style="--z:1">
@@ -446,6 +524,11 @@ a.btn,a.btn:hover{text-decoration:none}
       </div>
     </aside>
   </div>
+
+  <section class="guide hidden" id="guidePane">
+    <nav class="gtoc" id="gtoc"></nav>
+    <div class="gbody-wrap" id="gcontent"></div>
+  </section>
 </div>
 
 <input type="file" id="filePick" accept="image/png,image/jpeg,image/webp" class="hidden">
@@ -473,6 +556,7 @@ var state = {
   q: "", cat: null, diff: null,
   db: null, assets: null, downloads: null,
   userMoved: false,
+  page: "map", guide: [], gEditing: null,
   canEdit: false, roleKnown: false, baseStamp: null
 };
 var z = 1, tx = 0, ty = 0;
@@ -555,6 +639,44 @@ function newJump(){
   return {id: uid("j"), name:"", route:"", cat:"", diff:3, kit:"", tech:"", tags:[], videos:[]};
 }
 
+/* ---------- the guide ----------
+   Sections of prose that outlive any single spot: how a technique is performed,
+   what has to be set in the game for it to work at all. A section may name a
+   jump type, and then the two halves of the site link to each other — a jump
+   card points at the technique it uses, the technique points back at every
+   jump of that type. */
+var GUIDE_KINDS = [["technique","Techniques"],["setting","Game settings"]];
+
+function newSection(kind){
+  return {id: uid("g"), title:"", cat:"", kind: kind || "technique", body:""};
+}
+function normalizeGuide(raw){
+  if(!Array.isArray(raw)) return [];
+  return raw.filter(function(x){ return x && typeof x === "object"; }).map(function(g){
+    return {
+      id: g.id || uid("g"),
+      title: String(g.title || ""),
+      cat: String(g.cat || ""),
+      kind: g.kind === "setting" ? "setting" : "technique",
+      body: String(g.body || "")
+    };
+  });
+}
+/* The section describing a jump's type, if one was written. */
+function sectionForCat(cat){
+  if(!cat) return null;
+  var want = String(cat).toLowerCase();
+  return state.guide.filter(function(g){ return g.cat && g.cat.toLowerCase() === want; })[0] || null;
+}
+function jumpsWithCat(cat){
+  if(!cat) return 0;
+  var want = String(cat).toLowerCase(), n = 0;
+  state.spots.forEach(function(s){
+    (s.jumps||[]).forEach(function(j){ if(catOf(j).toLowerCase() === want) n++; });
+  });
+  return n;
+}
+
 /* Accepts both the current shape and the earlier one-jump-per-spot shape. */
 function normalize(raw, id){
   var s = {
@@ -593,7 +715,7 @@ var READONLY = /(^|[?&])view(=1)?(&|$)/.test(location.search);
 
 function saveLocal(){
   try{
-    localStorage.setItem(LS, JSON.stringify({spots:state.spots, map:state.map, baseStamp:state.baseStamp}));
+    localStorage.setItem(LS, JSON.stringify({spots:state.spots, guide:state.guide, map:state.map, baseStamp:state.baseStamp}));
   }catch(e){
     toast("The browser refused to save. If you picked a map image by hand it is probably over the storage quota \u2014 put map.png next to index.html instead.");
   }
@@ -604,6 +726,7 @@ function loadLocal(){
     if(!raw) return;
     var d = JSON.parse(raw);
     if(d && Array.isArray(d.spots)) state.spots = d.spots.map(function(s){ return normalize(s, s.id); });
+    if(d) state.guide = normalizeGuide(d.guide);
     if(d && d.map) state.map = d.map;
     if(d && d.baseStamp) state.baseStamp = d.baseStamp;
   }catch(e){}
@@ -614,6 +737,7 @@ function persistMap(){ saveLocal(); }
 
 function adopt(data, stamp){
   state.spots = (data.spots||[]).map(function(s){ return normalize(s, s.id); });
+  state.guide = normalizeGuide(data.guide);
   if(data.mapFile) state.map = {src: data.mapFile};
   state.baseStamp = stamp || null;
   saveLocal();
@@ -624,6 +748,7 @@ function exportData(){
     map: "Strike at Karkand",
     exported: new Date().toISOString(),
     mapFile: state.map && state.map.src ? state.map.src.replace(/^\//, "") : null,
+    guide: state.guide,
     spots: ordered()
   };
 }
@@ -1110,7 +1235,18 @@ function jumpCard(s, j, i){
   if(catOf(j)){
     var f1 = el("div","fact");
     f1.appendChild(el("span","lbl","Type"));
-    f1.appendChild(el("div","v", catOf(j)));
+    var sec = sectionForCat(catOf(j));
+    if(sec){
+      /* The technique is written up — say so here rather than making someone
+         guess that the Techniques page has something about this jump. */
+      var a = el("a","v gcat-link", catOf(j));
+      a.href = "#guide";
+      a.title = "How this technique works";
+      a.onclick = function(ev){ ev.preventDefault(); goGuide(sec.id); };
+      f1.appendChild(a);
+    } else {
+      f1.appendChild(el("div","v", catOf(j)));
+    }
     facts.appendChild(f1);
   }
   var f2 = el("div","fact");
@@ -1484,6 +1620,12 @@ function render(){
     banner.classList.add("hidden");
   }
 
+  var onGuide = state.page === "guide";
+  $("mainWrap").classList.toggle("hidden", onGuide);
+  $("guidePane").classList.toggle("hidden", !onGuide);
+  $("btnGuide").textContent = onGuide ? "Back to map" : "Techniques";
+  if(onGuide){ paintGuide(); return; }
+
   renderChips();
   $("listPane").innerHTML = "";
   if(state.editing && renderForm()){ renderMarkers(); return; }
@@ -1491,6 +1633,286 @@ function render(){
   renderList();
   renderMarkers();
 }
+
+/* ---------- guide page ----------
+   Same document, different view: there is no second HTML file to keep in sync,
+   and #guide in the address bar is a link anyone can send. */
+
+/* A very small subset of Markdown, rendered into DOM rather than innerHTML —
+   the text comes from a JSON file that a suggestion could one day touch, and
+   building nodes means it can never carry markup of its own.
+   Supported: blank-line paragraphs, "- " lists, ``` fences, **bold**, `code`,
+   [text](url) and bare links. Anything else stays literal. */
+var MD_RX = /(\*\*[^*\n]+\*\*)|(`[^`\n]+`)|(\[[^\]\n]+\]\(https?:\/\/[^\s)]+\))|(https?:\/\/[^\s<]+)/g;
+
+function mdInline(text, into){
+  var last = 0, m;
+  MD_RX.lastIndex = 0;
+  while((m = MD_RX.exec(text)) !== null){
+    if(m.index > last) into.appendChild(document.createTextNode(text.slice(last, m.index)));
+    var tok = m[0];
+    if(m[1]){
+      into.appendChild(el("strong", null, tok.slice(2, -2)));
+    } else if(m[2]){
+      into.appendChild(el("code", null, tok.slice(1, -1)));
+    } else if(m[3]){
+      var cut = tok.indexOf("](");
+      into.appendChild(mdLink(tok.slice(cut + 2, -1), tok.slice(1, cut)));
+    } else {
+      into.appendChild(mdLink(tok, tok));
+    }
+    last = m.index + tok.length;
+  }
+  if(last < text.length) into.appendChild(document.createTextNode(text.slice(last)));
+}
+function mdLink(href, label){
+  var a = document.createElement("a");
+  a.href = href; a.textContent = label;
+  a.target = "_blank"; a.rel = "noopener noreferrer";
+  return a;
+}
+function mdRender(src){
+  var out = el("div","gtext");
+  var lines = String(src || "").replace(/\r\n?/g, "\n").split("\n");
+  var i = 0;
+  while(i < lines.length){
+    var line = lines[i];
+    if(!line.trim()){ i++; continue; }
+
+    if(line.trim().indexOf("```") === 0){
+      var buf = [];
+      i++;
+      while(i < lines.length && lines[i].trim().indexOf("```") !== 0){ buf.push(lines[i]); i++; }
+      i++;
+      var pre = document.createElement("pre");
+      pre.appendChild(el("code", null, buf.join("\n")));
+      out.appendChild(pre);
+      continue;
+    }
+
+    if(/^\s*[-*]\s+/.test(line)){
+      var ul = document.createElement("ul");
+      while(i < lines.length && /^\s*[-*]\s+/.test(lines[i])){
+        var li = document.createElement("li");
+        mdInline(lines[i].replace(/^\s*[-*]\s+/, ""), li);
+        ul.appendChild(li);
+        i++;
+      }
+      out.appendChild(ul);
+      continue;
+    }
+
+    var para = [];
+    while(i < lines.length && lines[i].trim() && !/^\s*[-*]\s+/.test(lines[i]) && lines[i].trim().indexOf("```") !== 0){
+      para.push(lines[i]); i++;
+    }
+    var p = document.createElement("p");
+    mdInline(para.join(" "), p);
+    out.appendChild(p);
+  }
+  if(!out.childNodes.length) out.appendChild(el("p","hint","(empty)"));
+  return out;
+}
+
+function goGuide(anchor){
+  state.page = "guide";
+  state.gEditing = null;
+  setHash(true);
+  render();
+  if(anchor){
+    var n = $("g-" + anchor);
+    if(n) n.scrollIntoView({block:"start"});
+  } else {
+    var g = $("guidePane"); if(g) g.scrollTop = 0;
+  }
+}
+function goMap(cat){
+  state.page = "map";
+  state.gEditing = null;
+  setHash(false);
+  if(cat !== undefined){ state.cat = cat; state.sel = null; }
+  render();
+}
+
+function paintGuide(){
+  var toc = $("gtoc"), body = $("gcontent");
+  toc.innerHTML = ""; body.innerHTML = "";
+
+  body.appendChild(el("div","gintro",
+    "How the jumps on this map are actually performed, and what the game has to be set to for them to work. " +
+    "Sections tagged with a jump type are linked from every jump of that type."));
+
+  GUIDE_KINDS.forEach(function(pair){
+    var kind = pair[0], label = pair[1];
+    var mine = state.guide.filter(function(g){ return g.kind === kind; });
+
+    var head = el("div","ghead");
+    head.appendChild(el("h2", null, label));
+    if(state.edit){
+      var add = el("button","btn ghost sm","+ Add section");
+      add.onclick = function(){ state.gEditing = newSection(kind); state.guide.push(state.gEditing); render(); };
+      head.appendChild(add);
+    }
+    body.appendChild(head);
+
+    toc.appendChild(el("span","lbl",label));
+    if(!mine.length){
+      toc.appendChild(el("div","none","nothing yet"));
+      if(!state.edit){
+        var e = el("div","gempty");
+        e.appendChild(el("h3", null, kind === "setting" ? "No settings written yet" : "No techniques written yet"));
+        e.appendChild(el("div","hint", kind === "setting"
+          ? "Console commands, fps and latency settings that jumps depend on will appear here."
+          : "Step-by-step descriptions of each technique will appear here."));
+        body.appendChild(e);
+      }
+    }
+
+    mine.forEach(function(g){
+      var link = el("a", null, g.title || "Untitled");
+      link.href = "#guide";
+      link.onclick = function(ev){ ev.preventDefault(); var n = $("g-" + g.id); if(n) n.scrollIntoView({block:"start"}); };
+      toc.appendChild(link);
+      body.appendChild(state.gEditing && state.gEditing.id === g.id ? guideForm(g) : guideSection(g));
+    });
+  });
+}
+
+function guideSection(g){
+  var sec = el("article","gsec");
+  sec.id = "g-" + g.id;
+
+  var head = el("div","gsec-head");
+  head.appendChild(el("h3", null, g.title || "Untitled"));
+  if(g.cat) head.appendChild(el("span","gcat", g.cat));
+  sec.appendChild(head);
+
+  sec.appendChild(mdRender(g.body));
+
+  var foot = el("div","gsec-foot");
+  if(g.cat){
+    var n = jumpsWithCat(g.cat);
+    var b = el("button","btn ghost sm", n
+      ? n + " " + plural(n, "jump", "jumps") + " of this type →"
+      : "No jumps of this type yet");
+    b.disabled = !n;
+    b.onclick = function(){ goMap(g.cat); };
+    foot.appendChild(b);
+  }
+  if(state.edit){
+    var ed = el("button","btn sm","Edit");
+    ed.onclick = function(){ state.gEditing = g; render(); };
+    foot.appendChild(ed);
+    var up = el("button","btn ghost sm","↑");
+    up.title = "Move up";
+    up.onclick = function(){ moveSection(g, -1); };
+    var dn = el("button","btn ghost sm","↓");
+    dn.title = "Move down";
+    dn.onclick = function(){ moveSection(g, 1); };
+    foot.appendChild(up); foot.appendChild(dn);
+    var rm = el("button","btn ghost danger sm","Delete");
+    rm.onclick = function(){
+      if(!confirm("Delete “" + (g.title || "this section") + "”?")) return;
+      state.guide = state.guide.filter(function(x){ return x.id !== g.id; });
+      saveLocal(); render();
+    };
+    foot.appendChild(rm);
+  }
+  if(foot.childNodes.length) sec.appendChild(foot);
+  return sec;
+}
+
+/* Order is kept within a kind: moving past the end of its own group would
+   silently retype the section, which is not what an arrow means. */
+function moveSection(g, dir){
+  var mine = state.guide.filter(function(x){ return x.kind === g.kind; });
+  var at = mine.indexOf(g), to = at + dir;
+  if(to < 0 || to >= mine.length) return;
+  var a = state.guide.indexOf(mine[at]), b = state.guide.indexOf(mine[to]);
+  state.guide[a] = mine[to]; state.guide[b] = mine[at];
+  saveLocal(); render();
+}
+
+function guideForm(g){
+  var f = el("form","gform");
+  f.onsubmit = function(e){ e.preventDefault(); };
+
+  var row = el("div","row");
+  var lt = document.createElement("label");
+  lt.appendChild(el("span","lbl","Title"));
+  var ti = document.createElement("input");
+  ti.type = "text"; ti.id = "g_title"; ti.value = g.title;
+  ti.placeholder = g.kind === "setting" ? "e.g. Frame rate and latency" : "e.g. Bunny hop";
+  lt.appendChild(ti); row.appendChild(lt);
+
+  var lc = document.createElement("label");
+  lc.appendChild(el("span","lbl","Jump type it explains (optional)"));
+  var ci = document.createElement("input");
+  ci.type = "text"; ci.id = "g_cat"; ci.value = g.cat;
+  ci.placeholder = "must match the type on the jumps";
+  ci.setAttribute("list", "g_cats");
+  var dl = document.createElement("datalist");
+  dl.id = "g_cats";
+  allCats().forEach(function(c){ var o = document.createElement("option"); o.value = c; dl.appendChild(o); });
+  lc.appendChild(ci); lc.appendChild(dl); row.appendChild(lc);
+  f.appendChild(row);
+
+  var lb = document.createElement("label");
+  lb.appendChild(el("span","lbl","Text"));
+  var ta = document.createElement("textarea");
+  ta.id = "g_body"; ta.value = g.body;
+  ta.placeholder = "Plain text.\n\n- lists start with a dash\n- **bold**, `console commands`, links\n\n```\nthree backticks for a block of commands\n```";
+  lb.appendChild(ta);
+  f.appendChild(lb);
+  f.appendChild(el("div","hint","Blank line starts a paragraph. Dash starts a list. **bold**, `code`, [text](link) and bare links work. Three backticks fence a block."));
+
+  var bar = el("div","formbar");
+  var save = el("button","btn primary","Save");
+  save.onclick = function(){
+    g.title = ti.value.trim();
+    g.cat = ci.value.trim();
+    g.body = ta.value;
+    state.gEditing = null;
+    saveLocal();
+    render();
+  };
+  var cancel = el("button","btn ghost","Cancel");
+  cancel.onclick = function(){
+    /* A section added and then cancelled was never written down. */
+    if(!g.title && !g.body) state.guide = state.guide.filter(function(x){ return x.id !== g.id; });
+    state.gEditing = null;
+    render();
+  };
+  bar.appendChild(save); bar.appendChild(cancel);
+  f.appendChild(bar);
+  return f;
+}
+
+$("btnGuide").onclick = function(){
+  if(state.page === "guide") goMap();
+  else goGuide();
+};
+
+/* #guide in the address bar is the page's only route: it survives a reload and
+   can be sent to someone. The lock keeps our own hash writes from bouncing
+   back through hashchange and re-rendering a second time. */
+var hashLock = false;
+function setHash(on){
+  hashLock = true;
+  if(on) location.hash = "guide";
+  else if(location.hash) history.replaceState(null, "", location.pathname + location.search);
+  setTimeout(function(){ hashLock = false; }, 0);
+}
+window.addEventListener("hashchange", function(){
+  if(hashLock) return;
+  var want = /^#guide/.test(location.hash || "");
+  if(want !== (state.page === "guide")){
+    state.page = want ? "guide" : "map";
+    state.gEditing = null;
+    render();
+  }
+});
+if(/^#guide/.test(location.hash || "")) state.page = "guide";
 
 /* ---------- top bar ---------- */
 $("btnEdit").onclick = function(){
@@ -1984,7 +2406,9 @@ fetch("/api/save", {cache: "no-store"}).then(function(r){
 document.addEventListener("keydown", function(e){
   if(e.key !== "Escape") return;
   if(SUG.open){ closeSug(); return; }
-  if(state.editing){ state.editing = null; render(); }
+  if(state.gEditing){ state.gEditing = null; render(); }
+  else if(state.page === "guide"){ goMap(); }
+  else if(state.editing){ state.editing = null; render(); }
   else if(state.sel){ state.sel = null; render(); }
 });
 window.addEventListener("resize", function(){ measure(); if(!state.userMoved) fit(); else placeMarkers(); });
