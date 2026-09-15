@@ -1,7 +1,7 @@
 {
   "game": "Battlefield 2",
   "map": "Strike at Karkand",
-  "exported": "2026-09-15T14:49:33.461Z",
+  "exported": "2026-09-15T22:53:31.481Z",
   "mapFile": "map.png",
   "guide": [
     {
@@ -128,7 +128,7 @@
       "title": "Fps lock and fps stability",
       "cat": "",
       "kind": "setting",
-      "body": ""
+      "body": "Two commands in Bf2 console that will help to unlock full potential of your PC. Idealy you should see more than 100 FPS in upper left corner. Jumps will be easier and smoothier.\n\n```\ngame.lockfps 0\nrenderer.drawfps 1\n```\n\nIn case of high hz monitor it could be useful to lock fps to your hz\n`game.lockfps 120`\nor\n`game.lockfps 144`\nor \n`game.lockfps 360`\n"
     },
     {
       "id": "gmu2sfalzgwuxl",
