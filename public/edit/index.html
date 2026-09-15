@@ -1853,7 +1853,13 @@ function guideForm(g){
   ci.setAttribute("list", "g_cats");
   var dl = document.createElement("datalist");
   dl.id = "g_cats";
-  allCats().forEach(function(c){ var o = document.createElement("option"); o.value = c; dl.appendChild(o); });
+  /* allCats() hands back {name, count}, not strings — the option takes the name. */
+  allCats().forEach(function(c){
+    var o = document.createElement("option");
+    o.value = c.name;
+    o.label = c.name + " (" + c.count + ")";
+    dl.appendChild(o);
+  });
   lc.appendChild(ci); lc.appendChild(dl); row.appendChild(lc);
   f.appendChild(row);
 
