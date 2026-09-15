@@ -1,7 +1,7 @@
 {
   "game": "Battlefield 2",
   "map": "Strike at Karkand",
-  "exported": "2026-09-14T14:40:38.152Z",
+  "exported": "2026-09-15T10:23:48.394Z",
   "mapFile": "map.png",
   "spots": [
     {
@@ -17,7 +17,7 @@
           "id": "jmtx4is6vhylwc",
           "name": "train_balustrade_cnimney",
           "route": "balustrade>chimney",
-          "cat": "simple jump",
+          "cat": "Simple jump",
           "diff": 1,
           "kit": "run jump",
           "tech": "",
@@ -129,7 +129,7 @@
           "id": "jmtx7i5tzjdmvr",
           "name": "Bunnyhop into tower from bridge.",
           "route": "bridge-tower",
-          "cat": "Bunnyhop",
+          "cat": "Bunny hop",
           "diff": 2,
           "kit": "Full Stamina",
           "tech": "",
@@ -1468,8 +1468,8 @@
       "name": "",
       "x": 0.31823850508864016,
       "y": 0.2785294414858176,
-      "ox": 0,
-      "oy": -0.05,
+      "ox": 0.012166850087374503,
+      "oy": -0.04205742662702505,
       "createdAt": 1789395338194,
       "jumps": [
         {
@@ -1961,6 +1961,380 @@
             {
               "title": "",
               "url": "https://youtu.be/ntWbjQ12HY4",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu2hqiww8hram",
+      "name": "",
+      "x": 0.3548427025564512,
+      "y": 0.43889087047561576,
+      "ox": 0.029703297436211973,
+      "oy": -0.00836869066363144,
+      "createdAt": 1789465803584,
+      "jumps": [
+        {
+          "id": "jmu2hqiww3y6f4",
+          "name": "Jump roof to roof near square",
+          "route": "",
+          "cat": "Sprint jump",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/i2-F3vAl2Fw",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu2is9e1pgm2i",
+      "name": "",
+      "x": 0.5410176946943688,
+      "y": 0.3597509637857341,
+      "ox": -0.025929719804652085,
+      "oy": -0.0033621538137338924,
+      "createdAt": 1789467564169,
+      "jumps": [
+        {
+          "id": "jmu2is9e1eovo0",
+          "name": "Vodnik jump behind cement",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/AduHwkV6txw",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu2isqqaaauu5",
+      "name": "",
+      "x": 0.3298996566936969,
+      "y": 0.44494293351209846,
+      "ox": 0.03419348327370525,
+      "oy": -0.03034069258091121,
+      "createdAt": 1789467586642,
+      "jumps": [
+        {
+          "id": "jmu2isqqa3al4x",
+          "name": "Jump to little antenna roof on couch building",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/3L5AJJ6BIDU",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu2it9qt5987o",
+      "name": "",
+      "x": 0.48859471167945456,
+      "y": 0.2120787561359012,
+      "ox": -0.011146560291699026,
+      "oy": -0.04284457069133479,
+      "createdAt": 1789467611285,
+      "jumps": [
+        {
+          "id": "jmu2it9qtvsqt5",
+          "name": "Jump Gatehouse different electric poles",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/6XNKPAA655g",
+              "note": ""
+            },
+            {
+              "title": "",
+              "url": "https://youtu.be/AsPWzLOD278",
+              "note": ""
+            },
+            {
+              "title": "",
+              "url": "https://youtu.be/Pp8ZgtQq1lY",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu2itws94yoes",
+      "name": "",
+      "x": 0.3165360567839952,
+      "y": 0.4835900041070508,
+      "ox": 0.044211117201670425,
+      "oy": -0.0009541962504001078,
+      "createdAt": 1789467641145,
+      "jumps": [
+        {
+          "id": "jmu2itws9ivr88",
+          "name": "Jump Hotel from high roof to overhang near the flag",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/eVr-bqGlrJM",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu2iu9twadbmt",
+      "name": "",
+      "x": 0.30019077953662304,
+      "y": 0.5155789789853481,
+      "ox": 0.017639611113329068,
+      "oy": 0.014762764866456446,
+      "createdAt": 1789467658052,
+      "jumps": [
+        {
+          "id": "jmu2iu9twn5b3x",
+          "name": "Jump Hotel to electric pole",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/t3VTdFz-tyU",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu2iupu5tpvnt",
+      "name": "",
+      "x": 0.36007876063710736,
+      "y": 0.5189732934231774,
+      "ox": 0.029639593972112133,
+      "oy": 0.001933009303704547,
+      "createdAt": 1789467678797,
+      "jumps": [
+        {
+          "id": "jmu2iupu5jeglb",
+          "name": "Jump Hotel near red zone to the higher roof",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/OdrM30rRBcY",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu2iv1bqhu75p",
+      "name": "",
+      "x": 0.17811834525478282,
+      "y": 0.36420026741380807,
+      "ox": -0.016203666187932952,
+      "oy": -0.016146258020400206,
+      "createdAt": 1789467693686,
+      "jumps": [
+        {
+          "id": "jmu2iv1bq62bjx",
+          "name": "Jump Suburb middle high ramp strafe jump to overhang",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/Zu3kpdO7-VE",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu2ivg4zm2uq2",
+      "name": "",
+      "x": 0.1507383204332654,
+      "y": 0.3134640024509752,
+      "ox": -0.028162289249370975,
+      "oy": 0.001992616827592497,
+      "createdAt": 1789467712883,
+      "jumps": [
+        {
+          "id": "jmu2ivg4znx9oq",
+          "name": "Jump Suburb fence near pool house",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/700l7b21WzA",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu2ivu482dq3o",
+      "name": "",
+      "x": 0.31525595475711277,
+      "y": 0.23764154019048322,
+      "ox": -0.02252698432906991,
+      "oy": -0.0032490884255477748,
+      "createdAt": 1789467731000,
+      "jumps": [
+        {
+          "id": "jmu2ivu48ju0jk",
+          "name": "Jump Train electric pole upper ramp",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/Po1EDNfs3Po",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu2iwqjgljdzz",
+      "name": "",
+      "x": 0.30291666067150597,
+      "y": 0.47038357342001375,
+      "ox": -0.012224622351311332,
+      "oy": -0.014932008340267588,
+      "createdAt": 1789467773020,
+      "jumps": [
+        {
+          "id": "jmu2iwqjghneuo",
+          "name": "Fall Hotel above couch house to sign",
+          "route": "",
+          "cat": "",
+          "diff": 3,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/lCZJObV7KEc",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu2ix51szp5sj",
+      "name": "",
+      "x": 0.3529926691556977,
+      "y": 0.5022113804121819,
+      "ox": 0.03902093386508726,
+      "oy": -0.010384414989686008,
+      "createdAt": 1789467791824,
+      "jumps": [
+        {
+          "id": "jmu2ix51s3cox0",
+          "name": "Experimental Jump Hotel near red zone",
+          "route": "",
+          "cat": "",
+          "diff": 5,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/mV375BKknfc",
+              "note": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "smu2ixi0t6a35k",
+      "name": "",
+      "x": 0.3451356329145287,
+      "y": 0.44407912458562504,
+      "ox": 0.044351193553283375,
+      "oy": 0.0013389041011007685,
+      "createdAt": 1789467808637,
+      "jumps": [
+        {
+          "id": "jmu2ixi0tf8w34",
+          "name": "Experimental Jump Square to the lamp",
+          "route": "",
+          "cat": "",
+          "diff": 5,
+          "kit": "",
+          "tech": "",
+          "tags": [],
+          "videos": [
+            {
+              "title": "",
+              "url": "https://youtu.be/yXesA5iItPE",
               "note": ""
             }
           ]
