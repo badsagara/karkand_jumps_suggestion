@@ -1,8 +1,143 @@
 {
   "game": "Battlefield 2",
   "map": "Strike at Karkand",
-  "exported": "2026-09-15T11:40:24.374Z",
+  "exported": "2026-09-15T14:49:33.461Z",
   "mapFile": "map.png",
+  "guide": [
+    {
+      "id": "gmu2qwnehodqse",
+      "title": "Remove delays between two jumps in control.con",
+      "cat": "Double Jump",
+      "kind": "setting",
+      "body": "Under `ControlMap.create InfantryPlayerInputControlMap` \nfind the line:\n`ControlMap.addKeyToTriggerMapping c_PIAction IDFKeyboard IDKey_Space 10000 0` \nand change it to\n`ControlMap.addKeyToTriggerMapping c_PIAction IDFKeyboard IDKey_Space 0 0`\n\nSometimes it is better to change this file after to read only (Be aware you will not be able to change controls in game menu without disabling read only)\n\nWith this change it is a lot easier to perform linked jumps."
+    },
+    {
+      "id": "gmu2rmpn1oxcwg",
+      "title": "Curve Jump",
+      "cat": "Curve Jump",
+      "kind": "technique",
+      "body": ""
+    },
+    {
+      "id": "gmu2rn0l5o8igq",
+      "title": "Vodnik Jump",
+      "cat": "Vodnik Jump",
+      "kind": "technique",
+      "body": ""
+    },
+    {
+      "id": "gmu2rn717pmj9u",
+      "title": "Supply Jump",
+      "cat": "Supply Jump",
+      "kind": "technique",
+      "body": ""
+    },
+    {
+      "id": "gmu2rnhb2qcrm6",
+      "title": "Aim for Jump lining",
+      "cat": "",
+      "kind": "technique",
+      "body": ""
+    },
+    {
+      "id": "gmu2rq9tfnefi3",
+      "title": "Falling to object from above",
+      "cat": "",
+      "kind": "technique",
+      "body": ""
+    },
+    {
+      "id": "gmu2rqzoweiru1",
+      "title": "2 steps spint jump",
+      "cat": "Sprint jump",
+      "kind": "technique",
+      "body": ""
+    },
+    {
+      "id": "gmu2rreto1aphr",
+      "title": "Sprint Jump",
+      "cat": "Sprint jump",
+      "kind": "technique",
+      "body": ""
+    },
+    {
+      "id": "gmu2rs1a752ywg",
+      "title": "Strafe Jump",
+      "cat": "Curve Jump",
+      "kind": "technique",
+      "body": ""
+    },
+    {
+      "id": "gmu2rsw9ixxt6n",
+      "title": "Training Mod for Battlefield 2",
+      "cat": "",
+      "kind": "setting",
+      "body": ""
+    },
+    {
+      "id": "gmu2rti10s6xsm",
+      "title": "Last moment Double Jump",
+      "cat": "Double Jump",
+      "kind": "technique",
+      "body": ""
+    },
+    {
+      "id": "gmu2rvluqkak3t",
+      "title": "Air Control in the Jump",
+      "cat": "",
+      "kind": "technique",
+      "body": "arrows,\nctrl,\nspace,\nfull stafe,\ncurve jump,\nair stop,\naim in jump itself\n"
+    },
+    {
+      "id": "gmu2rxfkxli3j4",
+      "title": "close to wall jump",
+      "cat": "",
+      "kind": "technique",
+      "body": ""
+    },
+    {
+      "id": "gmu2rz5vkh8ibd",
+      "title": "Double Jump",
+      "cat": "",
+      "kind": "technique",
+      "body": "Up the hill\nConnected Jumps"
+    },
+    {
+      "id": "gmu2rziejv4a90",
+      "title": "Stamina control and stamina effect on the jump",
+      "cat": "",
+      "kind": "technique",
+      "body": ""
+    },
+    {
+      "id": "gmu2s0s1kaubtr",
+      "title": "Squeeze or lie down technik after jump",
+      "cat": "",
+      "kind": "technique",
+      "body": ""
+    },
+    {
+      "id": "gmu2s7l22wiyjl",
+      "title": "Object jumps",
+      "cat": "",
+      "kind": "technique",
+      "body": "signs\npallets\ntrashbins\nslopes\nrailings\nevery and all horizontal surfaces"
+    },
+    {
+      "id": "gmu2sevjk2em7m",
+      "title": "Fps lock and fps stability",
+      "cat": "",
+      "kind": "setting",
+      "body": ""
+    },
+    {
+      "id": "gmu2sfalzgwuxl",
+      "title": "Nvidia video tweaking",
+      "cat": "",
+      "kind": "setting",
+      "body": ""
+    }
+  ],
   "spots": [
     {
       "id": "smtx4is6v2vm0v",
