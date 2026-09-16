@@ -1,7 +1,7 @@
 {
   "game": "Battlefield 2",
   "map": "Strike at Karkand",
-  "exported": "2026-09-16T09:09:53.695Z",
+  "exported": "2026-09-16T09:28:57.885Z",
   "mapFile": "map.png",
   "guide": [
     {
@@ -777,7 +777,7 @@
           "kit": "",
           "tech": "TIGHT TIMINGS.",
           "tags": [
-            "Full Stamina"
+            "Useful"
           ],
           "videos": [
             {
@@ -806,7 +806,10 @@
           "diff": 3,
           "kit": "Vodnik, Signboard",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -834,7 +837,9 @@
           "diff": 4,
           "kit": "",
           "tech": "TIGHT TIMINGS",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -862,7 +867,9 @@
           "diff": 4,
           "kit": "",
           "tech": "Tight timing. Hard to get jump distance right, hard to do the second hop after.",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -890,7 +897,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -923,7 +933,10 @@
           "diff": 2,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Training"
+          ],
           "videos": [
             {
               "title": "",
@@ -951,7 +964,9 @@
           "diff": 4,
           "kit": "",
           "tech": "TIGHT TIMING. HARD TO GET DISTANCE RIGHT.",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -989,7 +1004,9 @@
           "diff": 2,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1017,7 +1034,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1045,7 +1064,10 @@
           "diff": 4,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -1073,7 +1095,9 @@
           "diff": 5,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1101,7 +1125,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1129,7 +1155,10 @@
           "diff": 4,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -1157,7 +1186,9 @@
           "diff": 4,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1185,7 +1216,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1213,7 +1246,9 @@
           "diff": 5,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1241,7 +1276,9 @@
           "diff": 4,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1269,7 +1306,10 @@
           "diff": 4,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Supply"
+          ],
           "videos": [
             {
               "title": "",
@@ -1297,7 +1337,9 @@
           "diff": 2,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1330,7 +1372,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -1363,7 +1408,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -1396,7 +1444,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1439,7 +1489,10 @@
           "diff": 2,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -1467,7 +1520,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1495,7 +1550,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -1523,7 +1581,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1551,7 +1611,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1579,7 +1641,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1607,7 +1671,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -1635,7 +1702,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -1663,7 +1733,9 @@
           "diff": 4,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1691,7 +1763,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -1719,7 +1794,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -1747,7 +1825,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -1775,7 +1856,9 @@
           "diff": 5,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Experimental"
+          ],
           "videos": [
             {
               "title": "",
@@ -1803,7 +1886,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -1831,7 +1917,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1859,7 +1947,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -1887,7 +1978,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1915,7 +2008,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1943,7 +2038,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1971,7 +2068,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -1999,7 +2098,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -2027,7 +2128,9 @@
           "diff": 5,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Experimental"
+          ],
           "videos": [
             {
               "title": "",
@@ -2055,7 +2158,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -2083,7 +2188,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -2111,7 +2218,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -2139,7 +2249,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -2167,7 +2280,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -2195,7 +2310,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -2223,7 +2341,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -2251,7 +2371,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -2289,7 +2411,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -2317,7 +2441,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -2345,7 +2471,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -2373,7 +2501,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -2401,7 +2531,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -2429,7 +2561,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -2457,7 +2591,9 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -2485,7 +2621,9 @@
           "diff": 5,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Experimental"
+          ],
           "videos": [
             {
               "title": "",
@@ -2513,7 +2651,9 @@
           "diff": 5,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Experimental"
+          ],
           "videos": [
             {
               "title": "",
