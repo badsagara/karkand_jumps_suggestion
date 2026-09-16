@@ -1,7 +1,7 @@
 {
   "game": "Battlefield 2",
   "map": "Strike at Karkand",
-  "exported": "2026-09-16T09:28:57.885Z",
+  "exported": "2026-09-16T13:37:11.769Z",
   "mapFile": "map.png",
   "guide": [
     {
@@ -9,7 +9,7 @@
       "title": "Remove delays between two jumps in control.con",
       "cat": "Double Jump",
       "kind": "setting",
-      "body": "Under `ControlMap.create InfantryPlayerInputControlMap` \nfind the line:\n`ControlMap.addKeyToTriggerMapping c_PIAction IDFKeyboard IDKey_Space 10000 0` \nand change it to\n`ControlMap.addKeyToTriggerMapping c_PIAction IDFKeyboard IDKey_Space 0 0`\n\nSometimes it is better to change this file after to read only (Be aware you will not be able to change controls in game menu without disabling read only)\n\nWith this change it is a lot easier to perform linked jumps."
+      "body": "Under \n```\nControlMap.create InfantryPlayerInputControlMap\nfind the line:\nControlMap.addKeyToTriggerMapping c_PIAction IDFKeyboard IDKey_Space 10000 0\n\nand change it to\nControlMap.addKeyToTriggerMapping c_PIAction IDFKeyboard IDKey_Space 0 0\n```\nSometimes it is better to change this file after to read only (Be aware you will not be able to change controls in game menu without disabling read only)\n\nWith this change it is a lot easier to perform linked jumps."
     },
     {
       "id": "gmu2rmpn1oxcwg",
