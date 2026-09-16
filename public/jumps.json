@@ -1,7 +1,7 @@
 {
   "game": "Battlefield 2",
   "map": "Strike at Karkand",
-  "exported": "2026-09-15T22:53:31.481Z",
+  "exported": "2026-09-16T09:09:53.695Z",
   "mapFile": "map.png",
   "guide": [
     {
@@ -156,7 +156,9 @@
           "diff": 1,
           "kit": "run jump",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -184,7 +186,10 @@
           "diff": 2,
           "kit": "Vodnik",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -212,7 +217,9 @@
           "diff": 2,
           "kit": "Full Stamina",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -240,7 +247,9 @@
           "diff": 2,
           "kit": "Full Stamina",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -268,7 +277,9 @@
           "diff": 2,
           "kit": "Full Stamina",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -296,7 +307,9 @@
           "diff": 2,
           "kit": "Full Stamina",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -324,7 +337,9 @@
           "diff": 2,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -352,7 +367,9 @@
           "diff": 2,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -380,7 +397,10 @@
           "diff": 3,
           "kit": "Vodnik",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -408,7 +428,10 @@
           "diff": 2,
           "kit": "Vodnik",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -436,7 +459,10 @@
           "diff": 2,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -464,7 +490,11 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Fun",
+            "Training"
+          ],
           "videos": [
             {
               "title": "",
@@ -492,7 +522,9 @@
           "diff": 2,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -520,7 +552,10 @@
           "diff": 3,
           "kit": "Vodnik",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -548,7 +583,9 @@
           "diff": 2,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -581,7 +618,9 @@
           "diff": 2,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -609,7 +648,9 @@
           "diff": 2,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful"
+          ],
           "videos": [
             {
               "title": "",
@@ -637,7 +678,10 @@
           "diff": 3,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
@@ -666,6 +710,7 @@
           "kit": "Vodnik",
           "tech": "",
           "tags": [
+            "Not useful",
             "Vodnik"
           ],
           "videos": [
@@ -700,7 +745,10 @@
           "diff": 4,
           "kit": "",
           "tech": "",
-          "tags": [],
+          "tags": [
+            "Not useful",
+            "Vodnik"
+          ],
           "videos": [
             {
               "title": "",
